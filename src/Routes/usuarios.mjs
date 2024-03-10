@@ -2,8 +2,9 @@ import { Router, request, response } from "express";
 import {usuarios} from "../Utils/usuarios-array.mjs"
 import usuariosController from "../Controller/usuarios-controller.mjs"
 
-const routes = Router();
+const router= Router();
 
-routes.get('/api/usuarios', usuariosController.obtenerTodosUsuarios);
+router.get('/api/usuarios', usuariosController.obtenerTodosUsuarios);
 
-export default routes;
+
+export default router;
