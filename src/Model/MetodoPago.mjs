@@ -18,3 +18,5 @@ const metodoPagoEsquema = new mongoose.Schema({
         require: true
     }
 });
+
+export const MetodoPago = mongoose.model("MetodoPago", metodoPagoEsquema);

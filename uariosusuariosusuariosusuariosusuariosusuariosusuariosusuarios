@@ -1,0 +1,149 @@
+[1mdiff --git a/src/Controller/UsuarioController.mjs b/src/Controller/UsuarioController.mjs[m
+[1mindex b6a005b..171e666 100644[m
+[1m--- a/src/Controller/UsuarioController.mjs[m
+[1m+++ b/src/Controller/UsuarioController.mjs[m
+[36m@@ -1,6 +1,7 @@[m
+[31m-import { usuarios } from "../Utils/usuarios-array.mjs";[m
+[32m+[m[32mimport {Usuario} from "../Model/Usuario.mjs";[m
+ [m
+[31m-const obtenerTodosUsuarios = (request, response)=> {[m
+[32m+[m[32mconst obtenerTodosUsuarios = async (request, response)=> {[m
+[32m+[m[32m    const usuarios = await Usuario.find().populate("tipoUsuario").exec();[m
+     return response.status(200).send(usuarios);[m
+ }[m
+ [m
+[1mdiff --git a/src/Model/MetodoPago.mjs b/src/Model/MetodoPago.mjs[m
+[1mindex aa59c59..3ac256a 100644[m
+[1m--- a/src/Model/MetodoPago.mjs[m
+[1m+++ b/src/Model/MetodoPago.mjs[m
+[36m@@ -17,4 +17,6 @@[m [mconst metodoPagoEsquema = new mongoose.Schema({[m
+         ref: "Usuario",[m
+         require: true[m
+     }[m
+[31m-});[m
+\ No newline at end of file[m
+[32m+[m[32m});[m
+[32m+[m
+[32m+[m[32mexport const MetodoPago = mongoose.model("MetodoPago", metodoPagoEsquema);[m
+\ No newline at end of file[m
+[1mdiff --git a/src/Model/TipoPerfil.mjs b/src/Model/TipoPerfil.mjs[m
+[1mdeleted file mode 100644[m
+[1mindex 6aa7b40..0000000[m
+[1m--- a/src/Model/TipoPerfil.mjs[m
+[1m+++ /dev/null[m
+[36m@@ -1,15 +0,0 @@[m
+[31m-import mongoose from "mongoose";[m
+[31m-[m
+[31m-const tipoPerfilEsquema = new mongoose.Schema({[m
+[31m-    tipoPerfill: {[m
+[31m-        type: mongoose.Schema.Types.String,[m
+[31m-        enum: ["ADMINISTRADOR", "USUARIO"],[m
+[31m-        require: true[m
+[31m-    },[m
+[31m-    usuarios: [{[m
+[31m-        type: mongoose.Schema.Types.ObjectId,[m
+[31m-        ref: "Usuario"[m
+[31m-    }][m
+[31m-});[m
+[31m-[m
+[31m-export const TipoPerfil = mongoose.model("TipoPerfil", tipoPerfilEsquema);[m
+\ No newline at end of file[m
+[1mdiff --git a/src/Model/usuario.mjs b/src/Model/usuario.mjs[m
+[1mindex 6570ba1..ab57a5b 100644[m
+[1m--- a/src/Model/usuario.mjs[m
+[1m+++ b/src/Model/usuario.mjs[m
+[36m@@ -5,20 +5,20 @@[m [mconst usuarioEsquema = new mongoose.Schema({[m
+     type: mongoose.Schema.Types.String,[m
+     minLength: 10,[m
+     maxLength: 100,[m
+[31m-    require: true[m
+[32m+[m[32m    required: true[m
+   },[m
+   numeroIdentifacion: {[m
+     type: mongoose.Schema.Types.String,[m
+     minLength: 8,[m
+     maxLength: 21,[m
+     unique: true,[m
+[31m-    require: true[m
+[32m+[m[32m    requird: true[m
+   },[m
+   genero: {[m
+     type: mongoose.Schema.Types.String,[m
+     enum: ["M","F"],[m
+     default: "M",[m
+[31m-    require: true[m
+[32m+[m[32m    required: true[m
+   },[m
+   metodoPago: [{[m
+     type: mongoose.Schema.Types.ObjectId,[m
+[36m@@ -28,12 +28,12 @@[m [mconst usuarioEsquema = new mongoose.Schema({[m
+     type: mongoose.Schema.Types.String,[m
+     minLength: 8,[m
+     maxLength: 12,[m
+[31m-    require: true[m
+[32m+[m[32m    required: true[m
+   },[m
+[31m-  tipoPerfil: {[m
+[32m+[m[32m  tipoUsuario: {[m
+     type: mongoose.Schema.Types.ObjectId,[m
+[31m-    ref: "TipoPerfil",[m
+[31m-    require: true[m
+[32m+[m[32m    ref: "TipoUsuario",[m
+[32m+[m[32m    required: true[m
+   }[m
+ });[m
+ [m
+[1mdiff --git a/src/Routes/UsuarioRoutes.mjs b/src/Routes/UsuarioRoutes.mjs[m
+[1mindex 1ccac2d..c03aaf4 100644[m
+[1m--- a/src/Routes/UsuarioRoutes.mjs[m
+[1m+++ b/src/Routes/UsuarioRoutes.mjs[m
+[36m@@ -1,10 +1,30 @@[m
+ import { Router, request, response } from "express";[m
+ import {usuarios} from "../Utils/usuarios-array.mjs"[m
+ import usuariosController from "../Controller/UsuarioController.mjs"[m
+[32m+[m[32mimport { Usuario } from "../Model/Usuario.mjs";[m
+[32m+[m[32mimport { TipoUsuario } from "../Model/TipoUsuario.mjs";[m
+ [m
+ const router= Router();[m
+ [m
+ router.get('/api/usuarios', usuariosController.obtenerTodosUsuarios);[m
+[32m+[m[32mrouter.post('/api/usuarios',async (request, response)=> {[m
+[32m+[m
+[32m+[m[32m    const {body} = request;[m
+[32m+[m[32m    const nuevoUsuario = new Usuario(body);[m
+[32m+[m[32m    const encontrarTipoUsuario = await TipoUsuario.findById(nuevoUsuario.tipoUsuario);[m
+[32m+[m
+[32m+[m[32m    try{[m
+[32m+[m[32m        const guardarUsuario = await nuevoUsuario.save();[m
+[32m+[m[32m        encontrarTipoUsuario.usuarios.push(guardarUsuario._id);[m
+[32m+[m[32m        await encontrarTipoUsuario.save();[m
+[32m+[m[32m        return response.status(201).send(guardarUsuario);[m
+[32m+[m[32m    }catch(err){[m
+[32m+[m[32m        console.log(`Error: ${err}`);[m
+[32m+[m[32m        return response.status(400).send({[m
+[32m+[m[32m            message: err[m
+[32m+[m[32m        })[m
+[32m+[m[32m    }[m
+[32m+[m[32m})[m
+ [m
+ [m
+ export default router;[m
+[1mdiff --git a/src/index.mjs b/src/index.mjs[m
+[1mindex 2d08684..addab1f 100644[m
+[1m--- a/src/index.mjs[m
+[1m+++ b/src/index.mjs[m
+[36m@@ -1,10 +1,14 @@[m
+ import express  from "express";[m
+ import rutasUsuarios from "./Routes/UsuarioRoutes.mjs";[m
+[32m+[m[32mimport rutasTipoUsuario from "./Routes/TipoUsuarioRoutes.mjs"[m
+ import "./Data/data.mjs";[m
+ [m
+ const app = express();[m
+ [m
+[32m+[m[32mapp.use(express.json())[m
+[32m+[m
+ app.use(rutasUsuarios);[m
+[32m+[m[32mapp.use(rutasTipoUsuario);[m
+ [m
+ const PORT = process.env.PORT || 3000;[m
+ [m

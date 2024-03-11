@@ -5,20 +5,20 @@ const usuarioEsquema = new mongoose.Schema({
     type: mongoose.Schema.Types.String,
     minLength: 10,
     maxLength: 100,
-    require: true
+    required: true
   },
   numeroIdentifacion: {
     type: mongoose.Schema.Types.String,
     minLength: 8,
     maxLength: 21,
     unique: true,
-    require: true
+    requird: true
   },
   genero: {
     type: mongoose.Schema.Types.String,
     enum: ["M","F"],
     default: "M",
-    require: true
+    required: true
   },
   metodoPago: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -28,12 +28,12 @@ const usuarioEsquema = new mongoose.Schema({
     type: mongoose.Schema.Types.String,
     minLength: 8,
     maxLength: 12,
-    require: true
+    required: true
   },
-  tipoPerfil: {
+  tipoUsuario: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "TipoPerfil",
-    require: true
+    ref: "TipoUsuario",
+    required: true
   }
 });
 

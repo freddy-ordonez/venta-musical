@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const tipoPerfilEsquema = new mongoose.Schema({
-    tipoPerfill: {
+const tipoUsuarioEsquema = new mongoose.Schema({
+    tipoUsuario: {
         type: mongoose.Schema.Types.String,
         enum: ["ADMINISTRADOR", "USUARIO"],
-        require: true
+        required: true
     },
     usuarios: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -12,4 +12,4 @@ const tipoPerfilEsquema = new mongoose.Schema({
     }]
 });
 
-export const TipoPerfil = mongoose.model("TipoPerfil", tipoPerfilEsquema);
+export const TipoUsuario = mongoose.model("TipoUsuario", tipoUsuarioEsquema);"{"
