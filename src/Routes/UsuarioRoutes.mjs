@@ -1,6 +1,6 @@
 import { Router, request, response } from "express";
 import {usuarios} from "../Utils/usuarios-array.mjs"
-import usuariosController from "../Controller/usuarios-controller.mjs"
+import usuariosController from "../Controller/UsuarioController.mjs"
 
 const router= Router();
 

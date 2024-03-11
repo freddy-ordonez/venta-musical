@@ -1,5 +1,5 @@
 import express  from "express";
-import rutasUsuarios from "./Routes/usuarios.mjs";
+import rutasUsuarios from "./Routes/UsuarioRoutes.mjs";
 import "./Data/data.mjs";
 
 const app = express();

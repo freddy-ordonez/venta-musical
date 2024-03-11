@@ -5,7 +5,11 @@ const tipoPerfilEsquema = new mongoose.Schema({
         type: mongoose.Schema.Types.String,
         enum: ["ADMINISTRADOR", "USUARIO"],
         require: true
-    }
+    },
+    usuarios: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Usuario"
+    }]
 });
 
 export const TipoPerfil = mongoose.model("TipoPerfil", tipoPerfilEsquema);
