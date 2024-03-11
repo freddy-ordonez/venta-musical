@@ -4,7 +4,7 @@ import { TipoUsuario } from "../Model/TipoUsuario.mjs";
 const router = Router();
 
 router.get("/api/tipoUsuarios", async (request, response)=> {
-    const tipoUsuarios = await TipoUsuario.find().populate("usuarios").exec();
+    const tipoUsuarios = await TipoUsuario.find();
 
     return response.status(200).send(tipoUsuarios);
 })

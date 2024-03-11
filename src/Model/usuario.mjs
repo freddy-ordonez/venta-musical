@@ -5,36 +5,38 @@ const usuarioEsquema = new mongoose.Schema({
     type: mongoose.Schema.Types.String,
     minLength: 10,
     maxLength: 100,
-    required: true
+    required: true,
   },
-  numeroIdentifacion: {
+  dni: {
     type: mongoose.Schema.Types.String,
     minLength: 8,
     maxLength: 21,
     unique: true,
-    requird: true
+    required: true,
   },
   genero: {
     type: mongoose.Schema.Types.String,
-    enum: ["M","F"],
+    enum: ["M", "F"],
     default: "M",
-    required: true
+    required: true,
   },
-  metodoPago: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "MetodoPago"
-  }],
+  metodoPago: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "MetodoPago",
+    },
+  ],
   contrasena: {
     type: mongoose.Schema.Types.String,
     minLength: 8,
     maxLength: 12,
-    required: true
+    required: true,
   },
   tipoUsuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "TipoUsuario",
-    required: true
-  }
+    required: true,
+  },
 });
 
 export const Usuario = mongoose.model("Usuario", usuarioEsquema);
