@@ -8,7 +8,7 @@ const metodoPagoEsquema = new mongoose.Schema({
     },
     numeroTarjeta: {
         type: mongoose.Schema.Types.String,
-        minLength: 16,
+        minLength: 15,
         maxLegth: 16,
         require: true
     },
