@@ -1,4 +1,4 @@
-import { Router} from "express";
+import { Router } from "express";
 import { MetodoPago } from "../Model/MetodoPago.mjs";
 import { Usuario } from "../Model/Usuario.mjs";
 
@@ -18,8 +18,21 @@ router.post("/api/metodoPagos", async (request, response) => {
     numeroTarjeta,
     usuario,
   });
-  const encontrarUsuario = await Usuario.findById(usuario);
+  const encontrarUsuario = await Usuario.findById(usuario)
+    .populate("metodoPago")
+    .exec();
+const encontrarMetodoPago = await MetodoPago.find({usuario});
 
+  const metodoPagoExistente = encontrarMetodoPago.find((data)=> {
+    return data.numeroTarjeta === numeroTarjeta;
+  })
+
+  console.log(metodoPagoExistente);
+
+  if (metodoPagoExistente)
+    return response.status(400).send({
+      message: "Metodo de pago ya existe",
+    });
   if (!encontrarUsuario)
     return response.status(400).send({
       message: "Usuario no encontrado",
