@@ -3,12 +3,18 @@ import { usuarios } from "../Utils/usuarios-array.mjs";
 import usuariosController from "../Controller/UsuarioController.mjs";
 import { Usuario } from "../Model/Usuario.mjs";
 import { TipoUsuario } from "../Model/TipoUsuario.mjs";
+import { usuarioValidacion } from "../Utils/Validation/UsuarioSchema.mjs";
+import { matchedData, validationResult } from "express-validator";
 
 const router = Router();
 
 router.get("/api/usuarios", usuariosController.obtenerTodosUsuarios);
-router.post("/api/usuarios", async (request, response) => {
-  const { nombreCompleto, dni, genero, contrasena, tipoUsuario } = request.body;
+router.post("/api/usuarios", usuarioValidacion, async (request, response) => {
+  const validarUsuario = validationResult(request);
+
+  if (!validarUsuario.isEmpty()) return response.status(400).send(validarUsuario.array());
+  const { nombreCompleto, dni, genero, contrasena, tipoUsuario } =
+    matchedData(request);
   console.log(request.body);
   const nuevoUsuario = new Usuario({
     nombreCompleto,
@@ -29,7 +35,6 @@ router.post("/api/usuarios", async (request, response) => {
     await encontrarTipoUsuario.save();
     return response.status(201).send(guardarUsuario);
   } catch (err) {
-    console.log(`Error: ${err}`);
     return response.status(400).send({
       message: err,
     });

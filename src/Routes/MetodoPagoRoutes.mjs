@@ -21,11 +21,11 @@ router.post("/api/metodoPagos", async (request, response) => {
   const encontrarUsuario = await Usuario.findById(usuario)
     .populate("metodoPago")
     .exec();
-const encontrarMetodoPago = await MetodoPago.find({usuario});
+  const encontrarMetodoPago = await MetodoPago.find({ usuario });
 
-  const metodoPagoExistente = encontrarMetodoPago.find((data)=> {
+  const metodoPagoExistente = encontrarMetodoPago.find((data) => {
     return data.numeroTarjeta === numeroTarjeta;
-  })
+  });
 
   console.log(metodoPagoExistente);
 
