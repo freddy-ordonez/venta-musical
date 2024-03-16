@@ -12,7 +12,8 @@ router.get("/api/usuarios", usuariosController.obtenerTodosUsuarios);
 router.post("/api/usuarios", usuarioValidacion, async (request, response) => {
   const validarUsuario = validationResult(request);
 
-  if (!validarUsuario.isEmpty()) return response.status(400).send(validarUsuario.array());
+  if (!validarUsuario.isEmpty())
+    return response.status(400).send(validarUsuario.array());
   const { nombreCompleto, dni, genero, contrasena, tipoUsuario } =
     matchedData(request);
   console.log(request.body);
