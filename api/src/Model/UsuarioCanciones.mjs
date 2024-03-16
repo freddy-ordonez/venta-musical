@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const usuarioCancionesEsquema = mongoose.Schema({
   usuario: {
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"Usuario",
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Usuario",
+    required: true,
   },
   factura: {
     type: mongoose.Schema.Types.ObjectId,
@@ -17,3 +17,8 @@ const usuarioCancionesEsquema = mongoose.Schema({
     required: true,
   },
 });
+
+export const UsuarioCancion = mongoose.model(
+  "UsuarioCancion",
+  usuarioCancionesEsquema
+);

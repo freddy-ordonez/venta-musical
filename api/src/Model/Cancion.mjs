@@ -12,8 +12,8 @@ const cancionEsquema = new mongoose.Schema({
   generoMusical: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "GeneroMusical",
-    required: true
-  }
+    required: true,
+  },
 });
 
 export const Cancion = mongoose.model("Cancion", cancionEsquema);
