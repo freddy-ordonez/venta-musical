@@ -13,17 +13,17 @@ export const Dropdown = () => {
           <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end fs-5">
             <li>
               <a class="dropdown-item" href="#">
-                Menu item
+                Perfil
               </a>
             </li>
             <li>
               <a class="dropdown-item" href="#">
-                Menu item
+                Mis Canciones
               </a>
             </li>
             <li>
               <a class="dropdown-item" href="#">
-                Menu item
+                Login Out
               </a>
             </li>
           </ul>

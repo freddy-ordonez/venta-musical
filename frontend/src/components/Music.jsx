@@ -1,4 +1,6 @@
+import { ButtomMusic } from "./ButtonMusic";
 import { Card } from "./Card";
+import { ModalMusic } from "./ModalMusic";
 
 const usuario = {
   tipoUsuario: "U",
@@ -38,12 +40,16 @@ const canciones = [
 ];
 
 export const Music = () => {
-  const cards = canciones.map((cancion) => <Card key={cancion.id} />);
+  const cards = canciones.map((cancion) => <Card key={cancion.id} cancion={cancion} />);
   return (
-    <div className="container">
-      <div className="w-100 d-flex flex-md-row flex-sm-column flex-wrap align-items-center justify-content-center gap-4">
+    <div className="container my-5">
+      <h5 className="fs-3 m-0 fw-bold">Experiencia Perfecta!</h5>
+      <p className="fs-3 m-0 mb-3 fw-bold">Un sonido para cada tipo de persona</p>
+      <ButtomMusic />
+      <div className="w-100 d-flex flex-wrap flex-md-row flex-sm-column align-content-center justify-content-center justify-content-md-start  gap-3 me-auto">
         {cards}
       </div>
+      <ModalMusic />
     </div>
   );
 };
