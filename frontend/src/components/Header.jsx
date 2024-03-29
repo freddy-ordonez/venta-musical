@@ -4,7 +4,7 @@ import { NavCollapse } from "./NavCollapse";
 export const Header = () => {
   return (
     <nav class="nav navbar navbar-expand-lg">
-      <div class="container-fluid">
+      <div class="container">
         <button
           class="navbar-toggler"
           type="button"

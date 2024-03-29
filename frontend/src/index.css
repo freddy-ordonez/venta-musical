@@ -13,9 +13,8 @@ body {
 }
 
 .contenedor-boton-carrito {
-  display: scroll;
   position: fixed;
-  bottom: 320px;
+  bottom:100px;
   right: 100px;
   background-color: #fc819e;
   width: 40px;
