@@ -46,3 +46,8 @@ body {
 .inicia-sesion:hover {
   background-color: #fc819e !important;
 }
+
+.data-disable:disabled {
+  background-color: white !important;
+}
+

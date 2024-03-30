@@ -1,4 +1,9 @@
 import {Link} from 'react-router-dom';
+import { NavAdmin } from './NavAdmin';
+
+const usuario = {
+  tipoUsuario: "ADMINISTRADO",
+};
 
 export const NavCollapse = () => {
   return (
@@ -10,9 +15,7 @@ export const NavCollapse = () => {
             <li class="nav-item">
             <Link className='nav-link active'aria-current="page" to="canciones">Canciones</Link> 
             </li>
-            <li class="nav-item">
-            <Link className='nav-link active'aria-current="page" to="usuarios">Usuarios</Link> 
-            </li>
+            {usuario.tipoUsuario === "ADMINISTRADOR" ? null : <NavAdmin />}
           </ul>
         </div>
   )

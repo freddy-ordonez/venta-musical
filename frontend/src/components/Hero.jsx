@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Hero = () => {
   return (
     <div className="container-lg mt-5">
@@ -12,12 +14,13 @@ export const Hero = () => {
           estados de ánimo
         </p>
 
-        <button
+        <Link
           className="inicia-sesion btn text-dark rounded-0 "
           style={{ backgroundColor: "#FF82C2" }}
+          to="/login"
         >
           Iniciar Sesión
-        </button>
+        </Link>
       </div>
     </div>
   );

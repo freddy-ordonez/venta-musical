@@ -45,7 +45,7 @@ export const Music = () => {
     <div className="container my-5">
       <h5 className="fs-3 m-0 fw-bold">Experiencia Perfecta!</h5>
       <p className="fs-3 m-0 mb-3 fw-bold">Un sonido para cada tipo de persona</p>
-      {usuario.tipoUsuario !== "Administrador" ? null : <ButtomMusic />}
+      {usuario.tipoUsuario === "Usuario" ? null : <ButtomMusic />}
       <div className="w-100 d-flex flex-wrap flex-md-row flex-sm-column align-content-center justify-content-center justify-content-md-start  gap-3 me-auto">
         {cards}
       </div>
