@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 export const Dropdown = () => {
   return (
     <div class="btn-group">
@@ -12,19 +14,13 @@ export const Dropdown = () => {
           </button>
           <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end fs-5">
             <li>
-              <a class="dropdown-item" href="#">
-                Perfil
-              </a>
+              <Link className='dropdown-item' to="perfil">Perfil</Link> 
             </li>
             <li>
-              <a class="dropdown-item" href="#">
-                Mis Canciones
-              </a>
+            <Link className='dropdown-item' to="canciones">Mis Canciones</Link> 
             </li>
             <li>
-              <a class="dropdown-item" href="#">
-                Login Out
-              </a>
+            <Link className='dropdown-item' to="login-out">Login Out</Link> 
             </li>
           </ul>
         </div>

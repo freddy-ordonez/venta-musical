@@ -1,6 +1,6 @@
 const datosCanciones = ["Genero", "Precio"];
 
-export const Card = ({cancion}) => {
+export const Card = ({ cancion }) => {
   return (
     <div
       className="card border border-0 rounded-0"
@@ -18,10 +18,13 @@ export const Card = ({cancion}) => {
           {`${datosCanciones[0]}:`}{" "}
           <strong className="text-dark fs-5"> {cancion.generoMusical} </strong>
         </p>
-        <p className="fs-6 text-secondary fw-bold">{`${datosCanciones[1]}:`} <strong className="text-dark fs-5"> {cancion.precio}</strong></p>
-        <a href="#" className="btn btn-secondary rounded-0">
+        <p className="fs-6 text-secondary fw-bold">
+          {`${datosCanciones[1]}:`}{" "}
+          <strong className="text-dark fs-5"> {cancion.precio}</strong>
+        </p>
+        <button className="btn btn-secondary rounded-0">
           Añadir al carrito
-        </a>
+        </button>
       </div>
     </div>
   );
