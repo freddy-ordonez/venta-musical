@@ -24,11 +24,6 @@ export const ModalMusic = () => {
             <div class="modal-body">
               <FormMusic />
             </div>
-            <div class="modal-footer border-top-0">
-              <button type="button" class="btn btn-secondary rounded-0">
-                Submit
-              </button>
-            </div>
           </div>
         </div>
       </div>

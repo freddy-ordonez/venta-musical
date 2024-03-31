@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import musica from "../assets/musica.png";
 
 export const Login = () => {
@@ -20,7 +21,7 @@ export const Login = () => {
                   <div class="card-body p-4 p-lg-5 text-black">
                     <form>
                       <div class="d-flex align-items-center mb-3 pb-1">
-                        <h1 className="fs-3 fw-bold">JFMusic</h1>
+                        <h1 className="fs-3 fw-bold">JF.Music</h1>
                       </div>
 
                       <h5
@@ -62,9 +63,9 @@ export const Login = () => {
                       </div>
                       <p class="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                         No tienes una cuenta aún?{" "}
-                        <a href="#!" style={{ color: "#393f81" }}>
+                        <Link to="/registrarse" style={{ color: "#393f81" }}>
                           Registrate aqui!
-                        </a>
+                        </Link>
                       </p>
                       <a href="#!" class="small text-muted">
                         Politica de privacidad

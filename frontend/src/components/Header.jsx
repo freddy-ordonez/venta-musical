@@ -19,7 +19,7 @@ export const Header = () => {
             <span class="navbar-toggler-icon"></span>
           </button>
           <a class="logo navbar-brand fw-bold fs-2" href="#">
-            F.Music
+            JF.Music
           </a>
           <NavCollapse />
           <Dropdown />

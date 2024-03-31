@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Register = () => {
   return (
     <section
@@ -115,12 +117,12 @@ export const Register = () => {
 
                     <p class="text-center text-muted mt-5 mb-0">
                       Have already an account?{" "}
-                      <a
-                        href="#!"
+                      <Link
+                        to="/login"
                         class="fw-bold text-body text-decoration-none"
                       >
                         Login here
-                      </a>
+                      </Link>
                     </p>
                   </form>
                 </div>

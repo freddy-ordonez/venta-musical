@@ -41,10 +41,11 @@ export const DataUser = () => {
           <input
             class="d-block text-muted border-0 mb-0 data-disable "
             placeholder="M"
+            disabled
           />
         </td>
         <td>
-          <select className="btn btn-dark text-white border border-0 rounded-0">
+          <select className="btn btn-dark text-white border border-0 rounded-0" disabled>
             <option value="ADMINISTRADOR" className="border-0 rounded-0">
               Administrador
             </option>

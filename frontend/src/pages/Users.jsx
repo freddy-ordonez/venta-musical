@@ -9,7 +9,7 @@ export const Users = () => {
       <table class="table align-middle mb-0 bg-white">
         <thead class="bg-light">
           <tr>
-            <th>Name</th>
+            <th>Nombre</th>
             <th>Cedula y Genero</th>
             <th>Tipo Usuario</th>
             <th>Metodo Pago</th>
