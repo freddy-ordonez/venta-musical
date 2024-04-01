@@ -1,18 +1,18 @@
 import mongoose from "mongoose";
 
-const generoMusicalEsquema = mongoose.Schema({
+const generoMusicalEsquema = new mongoose.Schema({
+  nombre: {
+    type: mongoose.Schema.Types.String,
+    minLength: 4,
+    maxLength: 25,
+    required: true
+  },
   descripcion: {
     type: mongoose.Schema.Types.String,
     minLength: 30,
     maxLength: 250,
     required: true,
-  },
-  canciones: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Cancion",
-    },
-  ],
+  }
 });
 
 export const GeneroMusical = mongoose.model(

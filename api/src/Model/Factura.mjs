@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const facturaEsquema = mongoose.Schema({
+const facturaEsquema = new mongoose.Schema({
   usuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Usuario",

@@ -1,6 +1,7 @@
 const datosCanciones = ["Genero", "Precio"];
 
 export const Card = ({ cancion }) => {
+  const generoMusical = cancion.generoMusical;
   return (
     <div
       className="card border border-0 rounded-0"
@@ -16,7 +17,7 @@ export const Card = ({ cancion }) => {
         <h5 className="card-title mt-1 fs-1 fw-bold">{cancion.nombre}</h5>
         <p className="card-text m-0 fs-6 text-secondary fw-bold">
           {`${datosCanciones[0]}:`}{" "}
-          <strong className="text-dark fs-5"> {cancion.generoMusical} </strong>
+          <strong className="text-dark fs-5"> {generoMusical.nombre} </strong>
         </p>
         <p className="fs-6 text-secondary fw-bold">
           {`${datosCanciones[1]}:`}{" "}

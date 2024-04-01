@@ -1,19 +1,25 @@
-import express  from "express";
+import express from "express";
+import cors from "cors";
 import rutasUsuarios from "./Routes/UsuarioRoutes.mjs";
-import rutasTipoUsuario from "./Routes/TipoUsuarioRoutes.mjs"
-import rutasMetodoPago from "./Routes/MetodoPagoRoutes.mjs"
+import rutasTipoUsuario from "./Routes/TipoUsuarioRoutes.mjs";
+import rutasMetodoPago from "./Routes/MetodoPagoRoutes.mjs";
+import rutasCanciones from "./Routes/CancionRoutes.mjs";
+import rutasGeneroMusical from "./Routes/GeneroMusicalRoutes.mjs";
 import "./Data/data.mjs";
 
 const app = express();
 
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
 app.use(rutasUsuarios);
 app.use(rutasTipoUsuario);
 app.use(rutasMetodoPago);
+app.use(rutasCanciones);
+app.use(rutasGeneroMusical);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, ()=> {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-})
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
+});

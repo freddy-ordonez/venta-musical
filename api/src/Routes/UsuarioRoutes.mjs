@@ -16,7 +16,6 @@ router.post("/api/usuarios", usuarioValidacion, async (request, response) => {
     return response.status(400).send(validarUsuario.array());
   const { nombreCompleto, dni, genero, contrasena, tipoUsuario } =
     matchedData(request);
-  console.log(request.body);
   const nuevoUsuario = new Usuario({
     nombreCompleto,
     dni,
