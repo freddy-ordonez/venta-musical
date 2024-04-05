@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { estadoGeneroMusical } from "../store/genMusicStore";
 
 export const DataGenreMusic = ({ genero }) => {
   const [actualizar, setActualizar] = useState(false);
@@ -6,6 +7,9 @@ export const DataGenreMusic = ({ genero }) => {
   const refNombre = useRef();
   const refDescripcion = useRef();
   const refGuardar = useRef();
+  const refEditar = useRef();
+
+  const { actualizarGenero, eliminarGenero } = estadoGeneroMusical();
 
   const manejoClickActualizar = (e) => {
     e.target.disabled = true;
@@ -13,6 +17,22 @@ export const DataGenreMusic = ({ genero }) => {
     refDescripcion.current.disabled = false;
     refGuardar.current.disabled = false;
   };
+
+  const manejoClikGuardar = (e) => {
+    actualizarGenero(genero._id, gen);
+    e.target.disabled = true;
+    refEditar.current.disabled = false;
+    refNombre.current.disabled = true;
+    refDescripcion.current.disabled = true;
+  };
+
+  const manejoClikEliminar = (e) => {
+    eliminarGenero(gen._id);
+  };
+
+  useEffect(() => {
+    refGuardar.current.disabled = true;
+  }, []);
 
   return (
     <>
@@ -25,7 +45,9 @@ export const DataGenreMusic = ({ genero }) => {
                 class="fw-bold mb-1 border-0 data-disable"
                 value={gen.nombre}
                 ref={refNombre}
-                onChange={(e) => (setActualizar({...actualizar, nombre: e.target.value}))}
+                onChange={(e) =>
+                  setActualizar({ ...actualizar, nombre: e.target.value })
+                }
                 disabled
               />
             </div>
@@ -38,7 +60,11 @@ export const DataGenreMusic = ({ genero }) => {
             value={gen.descripcion}
             disabled
             ref={refDescripcion}
-            onChange={(e) => setGen({...actualizar, descripcion: e.target.value})}
+            rows={3}
+            onChange={(e) =>
+              setGen({ ...actualizar, descripcion: e.target.value })
+            }
+            style={{ resize: "none" }}
           />
         </td>
         <td>
@@ -46,11 +72,24 @@ export const DataGenreMusic = ({ genero }) => {
             type="button"
             class="btn btn-dark rounded-0"
             onClick={manejoClickActualizar}
+            ref={refEditar}
           >
             Editar
           </button>
-          <button type="button" class="btn btn-dark rounded-0 ms-lg-3" disabled ref={refGuardar}>
+          <button
+            type="button"
+            class="btn btn-dark rounded-0 ms-lg-3"
+            ref={refGuardar}
+            onClick={manejoClikGuardar}
+          >
             Guardar
+          </button>
+          <button
+            type="button"
+            class="btn btn-dark rounded-0 ms-lg-3"
+            onClick={manejoClikEliminar}
+          >
+            Eliminar
           </button>
         </td>
       </tr>

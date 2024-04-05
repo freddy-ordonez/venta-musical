@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const usuarioEsquema = new mongoose.Schema({
-  nombreCompleto: {
+  nombre: {
     type: mongoose.Schema.Types.String,
     minLength: 10,
     maxLength: 100,
@@ -14,18 +14,20 @@ const usuarioEsquema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  correoElectronico: {
+    type: mongoose.Schema.Types.String,
+    unique: true,
+    required: true
+  },
   genero: {
     type: mongoose.Schema.Types.String,
     enum: ["M", "F"],
-    default: "M",
     required: true,
   },
-  metodoPago: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "MetodoPago",
-    },
-  ],
+  metodoPago: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "MetodoPago",
+  },
   contrasena: {
     type: mongoose.Schema.Types.String,
     minLength: 8,
@@ -35,7 +37,6 @@ const usuarioEsquema = new mongoose.Schema({
   tipoUsuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "TipoUsuario",
-    required: true,
   },
 });
 

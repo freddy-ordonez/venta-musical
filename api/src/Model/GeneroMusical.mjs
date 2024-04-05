@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 const generoMusicalEsquema = new mongoose.Schema({
   nombre: {
     type: mongoose.Schema.Types.String,
-    minLength: 4,
     maxLength: 25,
-    required: true
+    required: true,
+    unique: true
   },
   descripcion: {
     type: mongoose.Schema.Types.String,

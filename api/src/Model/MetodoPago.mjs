@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const metodoPagoEsquema = new mongoose.Schema({
   tipoPago: {
     type: mongoose.Schema.Types.String,
-    enum: ["VISA", "MASTERCARD", "AMERICAN EXPRESS"],
+    enum: ["VISA", "MASTERCARD", "AMERICAN-EXPRESS"],
     require: true,
   },
   numeroTarjeta: {

@@ -5,7 +5,7 @@ export const Songs = () => {
   const canciones = estadoCancion((state) => state.canciones);
 
   const cards = canciones.map((cancion) => (
-    <Card key={cancion.id} cancion={cancion} />
+    <Card key={cancion._id} cancion={cancion} />
   ));
   return (
     <div className="container my-5">

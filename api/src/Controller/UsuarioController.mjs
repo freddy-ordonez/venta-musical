@@ -1,10 +1,7 @@
 import { Usuario } from "../Model/Usuario.mjs";
 
 const obtenerTodosUsuarios = async (request, response) => {
-  const usuarios = await Usuario.find()
-    .populate("tipoUsuario")
-    .populate("metodoPago")
-    .exec();
+  const usuarios = await Usuario.find();
   return response.status(200).send(usuarios);
 };
 

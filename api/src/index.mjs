@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import morgan from 'morgan'
 import rutasUsuarios from "./Routes/UsuarioRoutes.mjs";
 import rutasTipoUsuario from "./Routes/TipoUsuarioRoutes.mjs";
 import rutasMetodoPago from "./Routes/MetodoPagoRoutes.mjs";
@@ -10,6 +11,7 @@ import "./Data/data.mjs";
 const app = express();
 
 app.use(cors());
+app.use(morgan("dev"))
 app.use(express.json());
 
 app.use(rutasUsuarios);

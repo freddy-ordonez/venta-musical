@@ -11,6 +11,7 @@ router.get("/api/metodoPagos", async (request, response) => {
 });
 
 router.post("/api/metodoPagos", async (request, response) => {
+
   const { tipoPago, numeroTarjeta, usuario } = request.body;
 
   const nuevoMetodoPago = new MetodoPago({
@@ -18,35 +19,21 @@ router.post("/api/metodoPagos", async (request, response) => {
     numeroTarjeta,
     usuario,
   });
-  const encontrarUsuario = await Usuario.findById(usuario)
-    .populate("metodoPago")
-    .exec();
-  const encontrarMetodoPago = await MetodoPago.find({ usuario });
+  const encontrarUsuario = await Usuario.findById(usuario);
+  console.log(encontrarUsuario);
 
-  const metodoPagoExistente = encontrarMetodoPago.find((data) => {
-    return data.numeroTarjeta === numeroTarjeta;
-  });
-
-  console.log(metodoPagoExistente);
-
-  if (metodoPagoExistente)
-    return response.status(400).send({
-      message: "Metodo de pago ya existe",
-    });
   if (!encontrarUsuario)
     return response.status(400).send({
-      message: "Usuario no encontrado",
+      message: "Usuario no encontrado"
     });
 
   try {
     const guardarMetodoPago = await nuevoMetodoPago.save();
-    encontrarUsuario.metodoPago = encontrarUsuario.metodoPago.concat(
-      guardarMetodoPago._id
-    );
+    encontrarUsuario.metodoPago = guardarMetodoPago._id;
     await encontrarUsuario.save();
     return response.status(201).send(guardarMetodoPago);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return response.status(400).send({
       message: err,
     });
