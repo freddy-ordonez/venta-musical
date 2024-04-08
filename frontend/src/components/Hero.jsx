@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { estadoUsuario } from "../store/userStore";
 
 export const Hero = () => {
+  const login = estadoUsuario((state) => state.login);
+  console.log(login);
   return (
     <div className="container-lg mt-5">
       <div className="d-flex flex-column justify-content-start align-items-start text-start">
@@ -13,14 +16,15 @@ export const Hero = () => {
           curadas con cuidado, diseñadas para satisfacer todos los gustos y
           estados de ánimo
         </p>
-
-        <Link
-          className="inicia-sesion btn text-dark rounded-0 "
-          style={{ backgroundColor: "#FF82C2" }}
-          to="/login"
-        >
-          Iniciar Sesión
-        </Link>
+        {!login ? (
+          <Link
+            className="inicia-sesion btn text-dark rounded-0 "
+            style={{ backgroundColor: "#FF82C2" }}
+            to="/login"
+          >
+            Iniciar Sesión
+          </Link>
+        ) : null}
       </div>
     </div>
   );

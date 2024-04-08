@@ -1,4 +1,4 @@
-export const PaymentMethod = () => {
+export const PaymentMethod = ({values, handleChange}) => {
   return (
     <>
         <h6 className="fs-4">Metodo Pago</h6>
@@ -7,8 +7,9 @@ export const PaymentMethod = () => {
                 <input
                   type="text"
                   class="form-control"
-                  placeholder=""
-                  value=""
+                  id="metodoPago"
+                  value={values.numeroTarjeta}
+                  onChange={handleChange}
                 />
               </div>
     </>

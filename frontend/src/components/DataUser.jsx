@@ -1,32 +1,20 @@
 import * as Yup from "yup";
-import {useFormik} from 'formik'
+import { useFormik } from "formik";
 import { number } from "card-validator";
 import { estadoUsuario } from "../store/userStore";
-import { redirectDocument } from "react-router-dom";
 
 export const DataUser = ({ usuario }) => {
 
-  const validarTarjeta = (tarjeta) => {
-    const opciones = ["mastercard", "visa", "american-express"];
+  const usuarios = estadoUsuario((state) => state.usuarios);
 
-    // Validar el número de tarjeta
-    const resultadoValidacion = number(tarjeta);
-
-    // Verifica si el número de tarjeta es válido y si pertenece a alguna de las marcas especificadas
-    if (resultadoValidacion.isValid) {
-      return opciones.includes(resultadoValidacion.card.type);
-    }
-
-    return false;
-  };
   const validacionUsuario = Yup.object().shape({
     nombre: Yup.string()
-      .min(10,"Minimo 10 caracteres")
-      .max(100,"Maximo 100 caracteres")
+      .min(10, "Minimo 10 caracteres")
+      .max(100, "Maximo 100 caracteres")
       .required("Nombre es requerido"),
     dni: Yup.string()
-      .min(8,"Minimo 8 caracteres")
-      .max(21,"Maximo 21 caracteres")
+      .min(8, "Minimo 8 caracteres")
+      .max(21, "Maximo 21 caracteres")
       .required("La cedula es requerida"),
     numeroTarjeta: Yup.string()
       .test("Validar tarjeta", "Tarjeta Invalida", (value) =>
@@ -34,15 +22,15 @@ export const DataUser = ({ usuario }) => {
       )
       .required("El metodo de pago es requerido"),
     contrasena: Yup.string()
-      .min(8,"Minimo 8 caracteres")
-      .max(12,"Maximo 12 caracteres")
+      .min(8, "Minimo 8 caracteres")
+      .max(12, "Maximo 12 caracteres")
       .required("La contraseña es requerida"),
     correoElectronico: Yup.string()
       .email("El correo electrónico no tiene un formato válido")
-      .required("El correo electrónico es requerido")
+      .required("El correo electrónico es requerido"),
   });
 
-  const {agregarUsuario} = estadoUsuario();
+  const { agregarUsuario } = estadoUsuario();
 
   const formik = useFormik({
     initialValues: {
@@ -53,16 +41,18 @@ export const DataUser = ({ usuario }) => {
       correoElectronico: "",
     },
     validationSchema: validacionUsuario,
-    onSubmit: (values, {resetForm}) => {
+    onSubmit: (values, { resetForm }) => {
       const tipoTarjeta = number(values.numeroTarjeta).card.type.toUpperCase();
-      const usuario = {...values, tipoPago: tipoTarjeta, tipoUsuario: "660e1bd1021306d71c23cd9b"};
-      console.log(usuario);
+      const usuario = {
+        ...values,
+        tipoPago: tipoTarjeta,
+        tipoUsuario: "660e1bd1021306d71c23cd9b",
+      };
       agregarUsuario(usuario);
-      resetForm()
-      return redirectDocument("/")
+      resetForm();
     },
   });
-  
+
   return (
     <>
       <tr>
@@ -139,4 +129,18 @@ export const DataUser = ({ usuario }) => {
       </tr>
     </>
   );
+};
+
+const validarTarjeta = (tarjeta) => {
+  const opciones = ["mastercard", "visa", "american-express"];
+
+  // Validar el número de tarjeta
+  const resultadoValidacion = number(tarjeta);
+
+  // Verifica si el número de tarjeta es válido y si pertenece a alguna de las marcas especificadas
+  if (resultadoValidacion.isValid) {
+    return opciones.includes(resultadoValidacion.card.type);
+  }
+
+  return false;
 };

@@ -1,8 +1,11 @@
 import { Outlet } from "react-router-dom";
 import { Dropdown } from "./Dropdown";
 import { NavCollapse } from "./NavCollapse";
+import { estadoUsuario } from "../store/userStore";
 
 export const Header = () => {
+  const usuario = estadoUsuario((state) => state.login);
+  console.log(usuario);
   return (
     <>
       <nav class="nav navbar navbar-expand-lg">
@@ -21,8 +24,12 @@ export const Header = () => {
           <a class="logo navbar-brand fw-bold fs-2" href="#">
             JF.Music
           </a>
-          <NavCollapse />
-          <Dropdown />
+          <NavCollapse
+            tipoUsuario={
+              usuario ? usuario.tipoUsuario["tipoUsuario"] : "USUARIO"
+            }
+          />
+          {usuario ? <Dropdown usuario={usuario}/> : null}
         </div>
       </nav>
       <Outlet />

@@ -38,8 +38,10 @@ router.post("/api/usuarios", usuarioValidacion, async (request, response) => {
   });
 
   const encontrarTipoUsuario = await TipoUsuario.findById(
-    nuevoUsuario.tipoUsuario
+    tipoUsuario
   );
+
+  console.log(tipoUsuario);
 
   if (!encontrarTipoUsuario)
     return response.status(400).send({ message: "Tipo Usuario no encontrado" });

@@ -1,4 +1,6 @@
-export const UserConfig = () => {
+
+export const UserConfig = ({values, handleChange}) => {
+
   return (
     <>
       <div class="d-flex justify-content-between align-items-center mb-3">
@@ -10,7 +12,9 @@ export const UserConfig = () => {
           <input
             type="text"
             class="form-control"
-            value=""
+            id="nombre"
+            value={values.nombre}
+            onChange={handleChange}
           />
         </div>
         <div class="col-md-6">
@@ -18,7 +22,7 @@ export const UserConfig = () => {
           <input
             type="text"
             class="form-control"
-            value=""
+            value={values.dni}
             disabled={true}
           />
         </div>
@@ -27,10 +31,12 @@ export const UserConfig = () => {
         <div class="col-md-12">
           <label class="labels">Contraseña</label>
           <input
-            type="password"
+            type="text"
             class="form-control"
             placeholder=""
-            value="fgsfgsfd"
+            id='contrasena'
+            value={values.contrasena}
+            onChange={handleChange}
           />
         </div>
       </div>
@@ -40,11 +46,13 @@ export const UserConfig = () => {
           <input
             type="text"
             class="form-control"
-            placeholder=""
-            value=""
+            id='correoElectronico'
+            value={values.correoElectronico}
+            onChange={handleChange}
           />
         </div>
       </div>
     </>
   );
 };
+

@@ -5,44 +5,39 @@ import * as Yup from "yup";
 import { estadoUsuario } from "../store/userStore";
 
 export const Register = () => {
-  const validarTarjeta = (tarjeta) => {
-    const opciones = ["mastercard", "visa", "american-express"];
+  const usuarios = estadoUsuario((state) => state.usuarios);
 
-    // Validar el número de tarjeta
-    const resultadoValidacion = number(tarjeta);
-
-    // Verifica si el número de tarjeta es válido y si pertenece a alguna de las marcas especificadas
-    if (resultadoValidacion.isValid) {
-      return opciones.includes(resultadoValidacion.card.type);
-    }
-
-    return false;
-  };
   const validacionUsuario = Yup.object().shape({
     nombre: Yup.string()
-      .min(10,"Minimo 10 caracteres")
-      .max(100,"Maximo 100 caracteres")
+      .min(10, "Minimo 10 caracteres")
+      .max(100, "Maximo 100 caracteres")
       .required("Nombre es requerido"),
     dni: Yup.string()
-      .min(8,"Minimo 8 caracteres")
-      .max(21,"Maximo 21 caracteres")
-      .required("La cedula es requerida"),
+      .min(8, "Minimo 8 caracteres")
+      .max(21, "Maximo 21 caracteres")
+      .required("La cedula es requerida")
+      .test("Cedula existente", "Esta cedula ya esta registrada", (value) =>
+        validarCedulaExistente(value, usuarios)
+      ),
     numeroTarjeta: Yup.string()
       .test("Validar tarjeta", "Tarjeta Invalida", (value) =>
         validarTarjeta(value)
       )
       .required("El metodo de pago es requerido"),
     contrasena: Yup.string()
-      .min(8,"Minimo 8 caracteres")
-      .max(12,"Maximo 12 caracteres")
+      .min(8, "Minimo 8 caracteres")
+      .max(12, "Maximo 12 caracteres")
       .required("La contraseña es requerida"),
     correoElectronico: Yup.string()
       .email("El correo electrónico no tiene un formato válido")
-      .required("El correo electrónico es requerido"),
-      genero: Yup.string().required("Genero el requerido")
+      .required("El correo electrónico es requerido")
+      .test("Correo Existente", "Este correo ya esta registrado", (value) =>
+        validarCorreoExistente(value, usuarios)
+      ),
+    genero: Yup.string().required("Genero el requerido"),
   });
 
-  const {agregarUsuario} = estadoUsuario();
+  const { agregarUsuario } = estadoUsuario();
 
   const formik = useFormik({
     initialValues: {
@@ -51,15 +46,19 @@ export const Register = () => {
       numeroTarjeta: "",
       contrasena: "",
       correoElectronico: "",
-      genero: ""
+      genero: "",
     },
     validationSchema: validacionUsuario,
-    onSubmit: (values, {resetForm}) => {
+    onSubmit: (values, { resetForm }) => {
       const tipoTarjeta = number(values.numeroTarjeta).card.type.toUpperCase();
-      const usuario = {...values, tipoPago: tipoTarjeta, tipoUsuario: "660e1bd1021306d71c23cd9b"};
+      const usuario = {
+        ...values,
+        tipoPago: tipoTarjeta,
+        tipoUsuario: "660e1bd1021306d71c23cd9b",
+      };
       console.log(usuario);
       agregarUsuario(usuario);
-      resetForm()
+      resetForm();
     },
   });
 
@@ -83,11 +82,9 @@ export const Register = () => {
                   <h2 class="text-uppercase text-center mb-3">Crear Cuenta</h2>
 
                   <form onSubmit={formik.handleSubmit}>
-                  {formik.errors.nombre ? (
-                        <div className="text-danger">
-                          {formik.errors.nombre}
-                        </div>
-                      ) : null}
+                    {formik.errors.nombre ? (
+                      <div className="text-danger">{formik.errors.nombre}</div>
+                    ) : null}
                     <div class="form-outline mb-4">
                       <input
                         id="nombre"
@@ -102,10 +99,8 @@ export const Register = () => {
                     </div>
 
                     <div class="form-outline mb-4">
-                    {formik.errors.dni ? (
-                        <div className="text-danger">
-                          {formik.errors.dni}
-                        </div>
+                      {formik.errors.dni ? (
+                        <div className="text-danger">{formik.errors.dni}</div>
                       ) : null}
                       <input
                         id="dni"
@@ -120,7 +115,7 @@ export const Register = () => {
                     </div>
 
                     <div class="form-outline mb-4">
-                    {formik.errors.correoElectronico ? (
+                      {formik.errors.correoElectronico ? (
                         <div className="text-danger">
                           {formik.errors.correoElectronico}
                         </div>
@@ -138,7 +133,7 @@ export const Register = () => {
                     </div>
 
                     <div class="form-outline mb-4">
-                    {formik.errors.contrasena ? (
+                      {formik.errors.contrasena ? (
                         <div className="text-danger">
                           {formik.errors.contrasena}
                         </div>
@@ -159,11 +154,11 @@ export const Register = () => {
                       <h6 class="mb-2 pb-1">Genero: </h6>
 
                       <div class="form-check form-check-inline">
-                      {formik.errors.genero ? (
-                        <div className="text-danger">
-                          {formik.errors.genero}
-                        </div>
-                      ) : null}
+                        {formik.errors.genero ? (
+                          <div className="text-danger">
+                            {formik.errors.genero}
+                          </div>
+                        ) : null}
                         <input
                           id="genero"
                           class="form-check-input"
@@ -237,4 +232,30 @@ export const Register = () => {
       </div>
     </section>
   );
+};
+
+const validarCedulaExistente = (cedula, usuarios) => {
+  const usuarioExistente = usuarios.find((usuario) => usuario.dni === cedula);
+  return !usuarioExistente;
+};
+
+const validarCorreoExistente = (correo, usuarios) => {
+  const usuarioExistente = usuarios.find(
+    (usuario) => usuario.correoElectronico === correo
+  );
+  return !usuarioExistente;
+};
+
+const validarTarjeta = (tarjeta) => {
+  const opciones = ["mastercard", "visa", "american-express"];
+
+  // Validar el número de tarjeta
+  const resultadoValidacion = number(tarjeta);
+
+  // Verifica si el número de tarjeta es válido y si pertenece a alguna de las marcas especificadas
+  if (resultadoValidacion.isValid) {
+    return opciones.includes(resultadoValidacion.card.type);
+  }
+
+  return false;
 };

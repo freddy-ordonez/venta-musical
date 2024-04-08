@@ -11,19 +11,27 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { useEffect } from "react";
 import { estadoCancion } from "./store/songStore";
+import { estadoUsuario } from "./store/userStore";
+import axios from "axios";
 
 function App() {
   const { todasCanciones } = estadoCancion();
+  const { todosUsuarios, autenticarUsuario } = estadoUsuario();
+  const usuario = estadoUsuario((state) => state.login);
+
+  axios.defaults.withCredentials = true;
 
   useEffect(() => {
     todasCanciones();
+    todosUsuarios();
+    if (usuario) autenticarUsuario();
   }, []);
 
   return (
     <div className="App">
       <Routes>
-        <Route path="login" element={<Login />} />
-        <Route path="registrarse" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registrarse" element={<Register />} />
         <Route path="/" element={<Header />}>
           <Route index element={<Home />} />
           <Route path="canciones" element={<Songs />} />

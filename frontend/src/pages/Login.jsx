@@ -1,7 +1,39 @@
 import { Link } from "react-router-dom";
 import musica from "../assets/musica.png";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { estadoUsuario } from "../store/userStore";
+import {useNavigate} from 'react-router-dom'
 
 export const Login = () => {
+
+  const navigate = useNavigate()
+  const {loginUsuario} = estadoUsuario();
+
+  const validacionLogin = Yup.object().shape({
+    correoElectronico: Yup.string().email(
+      "El correo electrónico no tiene un formato válido"
+    ),
+    contrasena: Yup.string()
+      .min(8, "Minimo 8 caracteres")
+      .max(12, "Maximo 12 caracteres")
+      .required("La contraseña es requerida"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      correoElectronico: "",
+      contrasena: "",
+    },
+    validationSchema: validacionLogin,
+    onSubmit: (values, { resetForm }) => {
+      if(loginUsuario(values)){
+        navigate("/")
+        console.log("Exito");
+      };
+      resetForm();
+    },
+  });
   return (
     <section class="vh-100" style={{ backgroundColor: "#282C32" }}>
       <div class="container py-5 h-100">
@@ -19,7 +51,7 @@ export const Login = () => {
                 </div>
                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
                   <div class="card-body p-4 p-lg-5 text-black">
-                    <form>
+                    <form onSubmit={formik.handleSubmit}>
                       <div class="d-flex align-items-center mb-3 pb-1">
                         <h1 className="fs-3 fw-bold">JF.Music</h1>
                       </div>
@@ -32,20 +64,34 @@ export const Login = () => {
                       </h5>
 
                       <div class="form-outline mb-4">
+                        {formik.errors.correoElectronico ? (
+                          <div className="text-danger">
+                            {formik.errors.correoElectronico}
+                          </div>
+                        ) : null}
                         <input
                           type="text"
-                          id="form2Example17"
+                          id="correoElectronico"
+                          value={formik.values.correoElectronico}
+                          onChange={formik.handleChange}
                           class="form-control form-control-lg"
                         />
-                        <label class="form-label" for="form2Example17">
+                        <label class="form-label" for="correoElectronico">
                           Correo Electronico
                         </label>
                       </div>
 
                       <div class="form-outline mb-4">
+                        {formik.errors.contrasena ? (
+                          <div className="text-danger">
+                            {formik.errors.contrasena}
+                          </div>
+                        ) : null}
                         <input
                           type="password"
-                          id="form2Example27"
+                          id="contrasena"
+                          value={formik.values.contrasena}
+                          onChange={formik.handleChange}
                           class="form-control form-control-lg"
                         />
                         <label class="form-label" for="form2Example27">
@@ -56,7 +102,7 @@ export const Login = () => {
                       <div class="pt-1 mb-4">
                         <button
                           class="btn btn-dark btn-lg btn-block rounded-0"
-                          type="button"
+                          type="submit"
                         >
                           Inicia Sesión
                         </button>
