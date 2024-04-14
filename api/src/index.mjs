@@ -3,6 +3,9 @@ import cors from "cors";
 import morgan from "morgan";
 import session from "express-session";
 import cookieParser from 'cookie-parser';
+import {dirname, join} from 'path'
+import {fileURLToPath} from 'url'
+
 import rutasUsuarios from "./Routes/UsuarioRoutes.mjs";
 import rutasTipoUsuario from "./Routes/TipoUsuarioRoutes.mjs";
 import rutasMetodoPago from "./Routes/MetodoPagoRoutes.mjs";
@@ -10,8 +13,11 @@ import rutasCanciones from "./Routes/CancionRoutes.mjs";
 import rutasGeneroMusical from "./Routes/GeneroMusicalRoutes.mjs";
 import rutasLogin from "./Routes/LoginRoute.mjs";
 import "./Data/data.mjs";
+import {multerUpload} from './Utils/midleware/multer.mjs'
 
 const app = express();
+
+const CURRENT_DIR = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.urlencoded({extended: true}))
 app.use(cors({
@@ -35,10 +41,15 @@ app.use(
 );
 
 app.use((request, response, next)=> {
-  console.log(request.session);
-  console.log(request.sessionID)
   next()
 })
+app.post('/upload', multerUpload.single('file'), (req, res) => {
+  console.log(req.file);
+
+  res.sendStatus(200);
+});
+
+app.use('/public', express.static(join(CURRENT_DIR, '/uploads')));
 
 app.use(rutasUsuarios);
 app.use(rutasTipoUsuario);

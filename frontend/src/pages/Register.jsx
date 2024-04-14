@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { number } from "card-validator";
 import * as Yup from "yup";
@@ -6,6 +6,8 @@ import { estadoUsuario } from "../store/userStore";
 
 export const Register = () => {
   const usuarios = estadoUsuario((state) => state.usuarios);
+
+  const navigate = useNavigate();
 
   const validacionUsuario = Yup.object().shape({
     nombre: Yup.string()
@@ -56,9 +58,9 @@ export const Register = () => {
         tipoPago: tipoTarjeta,
         tipoUsuario: "660e1bd1021306d71c23cd9b",
       };
-      console.log(usuario);
       agregarUsuario(usuario);
       resetForm();
+      navigate(-1);
     },
   });
 

@@ -1,13 +1,32 @@
+import { useEffect, useState } from "react";
 import { DataUser } from "../components/DataUser";
+import { estadoUsuario } from "../store/userStore";
+import { Alert } from "../components/Alert";
 
-const numeros = [1,2,3,4]
-const dataUsers = numeros.map(()=> <DataUser />)
+
+
 export const Users = () => {
-    
+  
+  const tiposUsuarios = estadoUsuario((state) => state.tipoUsuarios);
+  const usuarios = estadoUsuario((state) => (state.usuarios));
+  const {todosTiposUsuarios} = estadoUsuario();
+
+  const [alerta, setAlerta] = useState({
+    abrir: false,
+    mensaje: "",
+    tipo: "",
+  });
+
+  const dataUsers = usuarios.map((usuario)=> <DataUser key={usuario._id} usuario={usuario} tiposUsuarios={tiposUsuarios} setAlerta={setAlerta}/>)
+
+  useEffect(()=> {
+    todosTiposUsuarios()
+  }, [])
   return (
     <div className="container mt-5">
-      <table class="table align-middle mb-0 bg-white">
-        <thead class="bg-light">
+      {alerta.abrir ? <Alert mensaje={alerta.mensaje} tipo={alerta.tipo}/> : null }
+      <table className="table align-middle mb-0 bg-white">
+        <thead className="bg-light">
           <tr>
             <th>Nombre</th>
             <th>Cedula y Genero</th>

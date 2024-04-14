@@ -5,9 +5,18 @@ import { estadoUsuario } from "../store/userStore";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { number } from "card-validator";
+import { useState } from "react";
+import { Alert } from "../components/Alert";
 
 export const Profile = () => {
+  const [alerta, setAlerta] = useState({
+    abrir: false,
+    mensaje: "",
+    tipo: "",
+  });
   const usuario = estadoUsuario((state) => state.login);
+  const usuarios = estadoUsuario((state) => state.usuarios);
+  const { actualizarPerfil } = estadoUsuario();
   const { nombre, dni, contrasena, correoElectronico, metodoPago } = usuario;
   const { numeroTarjeta } = metodoPago;
 
@@ -27,31 +36,51 @@ export const Profile = () => {
       .required("La contraseña es requerida"),
     correoElectronico: Yup.string()
       .email("El correo electrónico no tiene un formato válido")
-      .required("El correo electrónico es requerido"),
-    // .test("Correo Existente", "Este correo ya esta registrado", (value) =>
-    //   // validarCorreoExistente(value, usuarios)
-    // )
+      .required("El correo electrónico es requerido")
+      .test("Correo Existente", "Este correo ya esta registrado", (value) =>
+        validarCorreoExistente(usuario._id, value, usuarios)
+      ),
   });
 
-  const { values, handleChange, handleSubmit } = useFormik({
+  const { values, handleChange, handleSubmit, errors } = useFormik({
     initialValues: {
       nombre,
       dni,
       contrasena,
       correoElectronico,
-      numeroTarjeta
+      numeroTarjeta,
     },
     validationSchema: validacionUsuario,
-    onSubmit: (values, { resetForm }) => {
-      // const tipoTarjeta = number(values.numeroTarjeta).card.type.toUpperCase();
-      // const usuario = {
-      //   ...values,
-      //   tipoPago: tipoTarjeta,
-      //   tipoUsuario: "660e1bd1021306d71c23cd9b",
-      // };
-      // console.log(usuario);
-      // agregarUsuario(usuario);
-      resetForm();
+    onSubmit: async (values) => {
+      const { nombre, dni, contrasena, correoElectronico, numeroTarjeta } =
+        values;
+      const usuarioActualizar = {
+        ...usuario,
+        nombre,
+        dni,
+        contrasena,
+        correoElectronico,
+      };
+      usuarioActualizar.metodoPago.numeroTarjeta = numeroTarjeta;
+      const usuarioFueActualizado = await actualizarPerfil(
+        usuarioActualizar._id,
+        usuarioActualizar
+      );
+      if (usuarioFueActualizado)
+        setAlerta({
+          abrir: usuarioFueActualizado,
+          mensaje: "Se actualizo correctamente",
+          tipo: "success",
+        });
+      else
+        setAlerta({
+          abrir: usuarioFueActualizado,
+          mensaje: "Hubo un problema al actualizar el usuario",
+          tipo: "danger",
+        });
+      setTimeout(() => {
+        setAlerta({ abrir: false });
+      }, 4000);
     },
   });
 
@@ -61,13 +90,27 @@ export const Profile = () => {
       style={{ backgroundColor: "#CFD6E5" }}
     >
       <form onSubmit={handleSubmit}>
-      <div class="row">
-          <ProfileLeft nombre={values.nombre} corroElectronico={values.correoElectronico}/>
+        <div class="row">
+          <ProfileLeft
+            nombre={values.nombre}
+            corroElectronico={values.correoElectronico}
+          />
           <div class="col-md-5 border-right">
             <div class="p-3 py-5 fw-bold">
-              <UserConfig values={values} handleChange={handleChange} />
+            {alerta.abrir ? (
+            <Alert mensaje={alerta.mensaje} tipo={alerta.tipo} />
+          ) : null}
+              <UserConfig
+                values={values}
+                handleChange={handleChange}
+                errors={errors}
+              />
               <hr className="my-5" />
-              <PaymentMethod values={values} handleChange={handleChange} />
+              <PaymentMethod
+                values={values}
+                handleChange={handleChange}
+                errors={errors}
+              />
               <div class="mt-5 text-right">
                 <button
                   class="btn btn-dark rounded-0 fs-5 fw-bold "
@@ -78,7 +121,7 @@ export const Profile = () => {
               </div>
             </div>
           </div>
-      </div>
+        </div>
       </form>
     </div>
   );
@@ -98,9 +141,10 @@ const validarTarjeta = (tarjeta) => {
   return false;
 };
 
-const validarCorreoExistente = (correo, usuarios) => {
+const validarCorreoExistente = (idUsuarioActual, correo, usuarios) => {
   const usuarioExistente = usuarios.find(
-    (usuario) => usuario.correoElectronico === correo
+    (usuario) =>
+      usuario._id !== idUsuarioActual && usuario.correoElectronico === correo
   );
   return !usuarioExistente;
 };

@@ -1,6 +1,4 @@
-
-export const UserConfig = ({values, handleChange}) => {
-
+export const UserConfig = ({ values, handleChange, errors }) => {
   return (
     <>
       <div class="d-flex justify-content-between align-items-center mb-3">
@@ -16,6 +14,9 @@ export const UserConfig = ({values, handleChange}) => {
             value={values.nombre}
             onChange={handleChange}
           />
+          {errors.nombre ? (
+            <div className="text-danger">{errors.nombre}</div>
+          ) : null}
         </div>
         <div class="col-md-6">
           <label class="labels">Cedula</label>
@@ -34,10 +35,13 @@ export const UserConfig = ({values, handleChange}) => {
             type="text"
             class="form-control"
             placeholder=""
-            id='contrasena'
+            id="contrasena"
             value={values.contrasena}
             onChange={handleChange}
           />
+          {errors.contrasena ? (
+            <div className="text-danger">{errors.contrasena}</div>
+          ) : null}
         </div>
       </div>
       <div class="row mt-3">
@@ -46,13 +50,15 @@ export const UserConfig = ({values, handleChange}) => {
           <input
             type="text"
             class="form-control"
-            id='correoElectronico'
+            id="correoElectronico"
             value={values.correoElectronico}
             onChange={handleChange}
           />
+          {errors.correoElectronico ? (
+            <div className="text-danger">{errors.correoElectronico}</div>
+          ) : null}
         </div>
       </div>
     </>
   );
 };
-

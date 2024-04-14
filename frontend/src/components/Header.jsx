@@ -5,7 +5,6 @@ import { estadoUsuario } from "../store/userStore";
 
 export const Header = () => {
   const usuario = estadoUsuario((state) => state.login);
-  console.log(usuario);
   return (
     <>
       <nav class="nav navbar navbar-expand-lg">

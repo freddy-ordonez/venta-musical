@@ -5,7 +5,6 @@ const router = Router();
 
 router.get("/api/login", (request, response) => {
   const usuario = request.session.user;
-  console.log(usuario);
   if (usuario) return response.send({ login: true, usuario });
   return response.send({ login: false });
 });
@@ -17,8 +16,8 @@ router.post("/api/login", async (request, response) => {
       correoElectronico,
       contrasena,
     })
-      .populate({ path: "metodoPago", select: "-_id numeroTarjeta" })
-      .populate({ path: "tipoUsuario", select: "-_id tipoUsuario" })
+      .populate({ path: "metodoPago", select: "id numeroTarjeta" })
+      .populate({ path: "tipoUsuario", select: "id tipoUsuario" })
       .exec();
     if (usuario) {
       request.session.user = usuario;

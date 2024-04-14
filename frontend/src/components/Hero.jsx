@@ -3,7 +3,6 @@ import { estadoUsuario } from "../store/userStore";
 
 export const Hero = () => {
   const login = estadoUsuario((state) => state.login);
-  console.log(login);
   return (
     <div className="container-lg mt-5">
       <div className="d-flex flex-column justify-content-start align-items-start text-start">

@@ -14,6 +14,10 @@ const cancionEsquema = new mongoose.Schema({
     ref: "GeneroMusical",
     required: true,
   },
+  imagen: {
+    type: mongoose.Schema.Types.String,
+    required: true
+  }
 });
 
 export const Cancion = mongoose.model("Cancion", cancionEsquema);

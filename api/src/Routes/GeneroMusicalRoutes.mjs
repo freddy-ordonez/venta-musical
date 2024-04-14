@@ -51,6 +51,7 @@ router.delete("/api/genero-musicales/:id", async (request, response) => {
   try {
     const { id } = request.params;
     const eliminarGenero = await GeneroMusical.findByIdAndDelete(id);
+    console.log(eliminarGenero);
     if (!eliminarGenero)
       return response.status(400).send({ message: "Genero no encontrado" });
     return response.status(200).send({ message: "Eliminado con exito" });

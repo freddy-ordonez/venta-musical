@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { MetodoPago } from "../Model/MetodoPago.mjs";
 import { Usuario } from "../Model/Usuario.mjs";
+import cardValidator from "card-validator";
 
 const router = Router();
 
@@ -11,8 +12,16 @@ router.get("/api/metodoPagos", async (request, response) => {
 });
 
 router.post("/api/metodoPagos", async (request, response) => {
+  const { numeroTarjeta, usuario } = request.body;
 
-  const { tipoPago, numeroTarjeta, usuario } = request.body;
+  console.log(validarTarjeta(numeroTarjeta));
+
+  if (!validarTarjeta(numeroTarjeta))
+    return response
+      .status(400)
+      .send({ message: "Numero de la tarjeta invalido" });
+
+  const tipoPago = cardValidator.number(numeroTarjeta).card.type.toUpperCase();
 
   const nuevoMetodoPago = new MetodoPago({
     tipoPago,
@@ -20,11 +29,10 @@ router.post("/api/metodoPagos", async (request, response) => {
     usuario,
   });
   const encontrarUsuario = await Usuario.findById(usuario);
-  console.log(encontrarUsuario);
 
   if (!encontrarUsuario)
     return response.status(400).send({
-      message: "Usuario no encontrado"
+      message: "Usuario no encontrado",
     });
 
   try {
@@ -41,3 +49,17 @@ router.post("/api/metodoPagos", async (request, response) => {
 });
 
 export default router;
+
+const validarTarjeta = (tarjeta) => {
+  const opciones = ["mastercard", "visa", "american-express"];
+
+  // Validar el número de tarjeta
+  const resultadoValidacion = cardValidator.number(tarjeta);
+
+  // Verifica si el número de tarjeta es válido y si pertenece a alguna de las marcas especificadas
+  if (resultadoValidacion.isValid) {
+    return opciones.includes(resultadoValidacion.card.type);
+  }
+
+  return false;
+};

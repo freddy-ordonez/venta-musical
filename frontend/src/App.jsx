@@ -1,6 +1,6 @@
 import { ButtonCartShopping } from "./components/ButtonCartShopping";
 import { Header } from "./components/Header";
-import { Routes, Route, Link, Outlet } from "react-router-dom";
+import { Routes, Route, Link, Outlet, useNavigate } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { ShoopingCart } from "./components/ShoopingCart";
 import { Profile } from "./pages/Profile";
@@ -18,13 +18,13 @@ function App() {
   const { todasCanciones } = estadoCancion();
   const { todosUsuarios, autenticarUsuario } = estadoUsuario();
   const usuario = estadoUsuario((state) => state.login);
-
   axios.defaults.withCredentials = true;
+  const navigate = useNavigate();
 
   useEffect(() => {
     todasCanciones();
     todosUsuarios();
-    if (usuario) autenticarUsuario();
+    autenticarUsuario();
   }, []);
 
   return (
@@ -37,7 +37,7 @@ function App() {
           <Route path="canciones" element={<Songs />} />
           <Route path="usuarios" element={<Users />} />
           <Route path="carrito" element={<ShoopingCart />} />
-          <Route path="perfil" element={<Profile />} />
+          <Route path="perfil" element={usuario ? <Profile /> : null} />
           <Route path="genero-musical" element={<GenMusic />} />
         </Route>
       </Routes>

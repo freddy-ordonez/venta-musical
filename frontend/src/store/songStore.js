@@ -17,8 +17,9 @@ export const estadoCancion = create((set) => ({
   },
   agregarCancion: async (cancion) => {
     try {
-      const { data } = await axios.post(`${SERVER}${agregarCancion}`);
-      set((state) => ({ ...state, canciones: [state.canciones, data] }));
+      const { data } = await axios.post(`${SERVER}${agregarCancion}`, cancion);
+      set((state) => ({ ...state, canciones: [...state.canciones, data] }));
+      return data;
     } catch (error) {
       console.error("Error al agregar una cancion", error);
     }

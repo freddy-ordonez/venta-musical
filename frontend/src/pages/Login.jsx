@@ -3,12 +3,14 @@ import musica from "../assets/musica.png";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { estadoUsuario } from "../store/userStore";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import {Alert} from "../components/Alert";
 
 export const Login = () => {
-
-  const navigate = useNavigate()
-  const {loginUsuario} = estadoUsuario();
+  const [alert, setAlert] = useState(false);
+  const navigate = useNavigate();
+  const { loginUsuario } = estadoUsuario();
 
   const validacionLogin = Yup.object().shape({
     correoElectronico: Yup.string().email(
@@ -26,12 +28,17 @@ export const Login = () => {
       contrasena: "",
     },
     validationSchema: validacionLogin,
-    onSubmit: (values, { resetForm }) => {
-      if(loginUsuario(values)){
-        navigate("/")
-        console.log("Exito");
-      };
+    onSubmit: async (values, { resetForm }) => {
+      const logeoExitoso = await loginUsuario(values);
+      if (logeoExitoso) {
+        navigate("/");
+      } else {
+        setAlert(!alert);
+      }
       resetForm();
+      setTimeout(() => {
+        setAlert(false);
+      }, 2000);
     },
   });
   return (
@@ -62,6 +69,7 @@ export const Login = () => {
                       >
                         Inicia Sesión
                       </h5>
+                      {alert ? <Alert mensaje={"usuario o contraseña mal"} tipo={"danger"}/> : null}
 
                       <div class="form-outline mb-4">
                         {formik.errors.correoElectronico ? (
