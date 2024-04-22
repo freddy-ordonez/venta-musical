@@ -4,6 +4,7 @@ const cancionEsquema = new mongoose.Schema({
   nombre: {
     type: mongoose.Schema.Types.String,
     required: true,
+    unique: true
   },
   precio: {
     type: mongoose.Schema.Types.Number,

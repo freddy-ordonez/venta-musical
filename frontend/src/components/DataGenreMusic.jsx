@@ -26,7 +26,7 @@ export const DataGenreMusic = ({ genero }) => {
     refDescripcion.current.disabled = true;
   };
 
-  const manejoClikEliminar = (e) => {
+  const manejoClikEliminar = () => {
     eliminarGenero(gen._id);
   };
 

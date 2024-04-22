@@ -45,6 +45,15 @@ export const estadoUsuario = create((set, get) => ({
       console.error("No se pudo logear", error);
     }
   },
+  loginAgregarCanciones: (canciones)=> {
+    try {
+      const {login} = get()
+      const nuevasCanciones = [...login.canciones, ...canciones]
+      set(state => ({login : {...state.login, canciones: nuevasCanciones}}))
+    } catch (error) {
+      console.error("Error al agregar las canciones al usuario", error);
+    }
+  },
   cerrarSesion: async () => {
     try {
       const { data } = await axios.get(`${SERVER}${cerrarSesion}`);
@@ -69,15 +78,8 @@ export const estadoUsuario = create((set, get) => ({
   },
   agregarUsuario: async (usuario) => {
     try {
-      const { numeroTarjeta, tipoPago } = usuario;
-      const { todosUsuarios, agregarMetodoPago } = get();
-      const { data } = await axios.post(`${SERVER}${usuarios}`, usuario);
-      agregarMetodoPago({
-        numeroTarjeta,
-        tipoPago,
-        usuario: data._id,
-      });
-      todosUsuarios();
+      const {data} = await axios.post(`${SERVER}${usuarios}`, usuario)
+      set(state => ({usuarios: [...state.usuarios, data]}))
     } catch (error) {
       console.error("Error al agregar todos los usuarios", error);
     }
@@ -95,35 +97,36 @@ export const estadoUsuario = create((set, get) => ({
   },
   actualizarUsuario: async (id, usuario) => {
     try {
-      const { status, data } = await axios.put(
+      const { data } = await axios.put(
         `${SERVER}${usuarios}/${id}`,
         usuario
       );
-      if (status === 200) {
-        const { todosUsuarios } = get();
-        todosUsuarios();
+      if (data) {
+        const usuarioActualizado = {...usuario, contrasena: data.contrasena};
+        set(state => ({usuarios: state.usuarios.map(u => u._id !== id ? u : usuarioActualizado)}))
       }
-      return status === 200;
+      return data;
     } catch (error) {
       console.error("Error al actualizar el usuario", error);
     }
   },
   eliminarUsuario: async (id) => {
     try {
-      const { status } = await axios.delete(`${SERVER}${usuarios}/${id}`);
-      if (status === 200) {
+      const { data } = await axios.delete(`${SERVER}${usuarios}/${id}`);
+      if (data) {
         const { usuarios } = get();
         set({usuarios: usuarios.filter((u) => u._id !== id)});
-        console.log(usuarios);
       }
-      return status === 200;
+      return data
     } catch (error) {
       console.error("Error al eliminar el usuario", error);
     }
   },
   agregarMetodoPago: async (metodoPago) => {
     try {
-      await axios.post(`${SERVER}${metodoPagos}`, metodoPago);
+      const {data} = await axios.post(`${SERVER}${metodoPagos}`, metodoPago);
+      console.log(data);
+
     } catch (error) {
       console.error("No se pudo agregar otro metodo pago", error);
     }

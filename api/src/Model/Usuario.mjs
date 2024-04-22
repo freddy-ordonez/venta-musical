@@ -30,14 +30,18 @@ const usuarioEsquema = new mongoose.Schema({
   },
   contrasena: {
     type: mongoose.Schema.Types.String,
-    minLength: 8,
-    maxLength: 12,
     required: true,
   },
   tipoUsuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "TipoUsuario",
   },
+  canciones: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cancion"
+    }
+  ]
 });
 
 export const Usuario = mongoose.model("Usuario", usuarioEsquema);

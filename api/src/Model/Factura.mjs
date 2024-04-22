@@ -18,6 +18,12 @@ const facturaEsquema = new mongoose.Schema({
     type: mongoose.Schema.Types.Number,
     required: true,
   },
+  canciones: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cancion"
+    }
+  ]
 });
 
 export const Factura = mongoose.model("Factura", facturaEsquema);

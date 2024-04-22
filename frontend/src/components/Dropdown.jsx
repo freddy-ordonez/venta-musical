@@ -28,7 +28,7 @@ export const Dropdown = ({usuario}) => {
           </Link>
         </li>
         <li>
-          <Link className="dropdown-item" to="canciones">
+          <Link className="dropdown-item" to="mis-canciones">
             Mis Canciones
           </Link>
         </li>

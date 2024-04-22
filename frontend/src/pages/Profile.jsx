@@ -42,7 +42,7 @@ export const Profile = () => {
       ),
   });
 
-  const { values, handleChange, handleSubmit, errors } = useFormik({
+  const { values, handleChange, handleSubmit, errors, setFieldValue } = useFormik({
     initialValues: {
       nombre,
       dni,
@@ -104,6 +104,7 @@ export const Profile = () => {
                 values={values}
                 handleChange={handleChange}
                 errors={errors}
+                setFieldValue={setFieldValue}
               />
               <hr className="my-5" />
               <PaymentMethod

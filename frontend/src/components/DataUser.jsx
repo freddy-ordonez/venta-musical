@@ -6,7 +6,7 @@ import usuarioFoto from "../assets/usuario.png";
 
 export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
   const usuarios = estadoUsuario((state) => state.usuarios);
-  const { actualizarUsuario, eliminarUsuario, todosUsuarios } = estadoUsuario();
+  const { actualizarUsuario, eliminarUsuario} = estadoUsuario();
   const {
     nombre,
     dni,
@@ -35,8 +35,6 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
       )
       .required("El metodo de pago es requerido"),
     contrasena: Yup.string()
-      .min(8, "Minimo 8 caracteres")
-      .max(12, "Maximo 12 caracteres")
       .required("La contraseña es requerida"),
     correoElectronico: Yup.string()
       .email("El correo electrónico no tiene un formato válido")
@@ -49,7 +47,7 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
       .matches(/^[MF]$/, "Solo M o F"),
   });
 
-  const { values, handleChange, handleSubmit, errors } = useFormik({
+  const { values, handleChange, handleSubmit, errors, setFieldValue} = useFormik({
     initialValues: {
       nombre,
       dni,
@@ -61,6 +59,7 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
     },
     validationSchema: validacionUsuario,
     onSubmit: async (values, { resetForm }) => {
+      console.log("entro");
       const {
         nombre,
         dni,
@@ -102,9 +101,24 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
     },
   });
 
-  const manejoClickBorrar = () => {
-    eliminarUsuario(usuario._id);
-    todosUsuarios();
+  const manejoClickBorrar = async () => {
+    const data = eliminarUsuario(usuario._id);
+    if (data) {
+      setAlerta({
+        abrir: true,
+        mensaje: "Se elimino correctamente",
+        tipo: "success",
+      }); 
+    }else {
+      setAlerta({
+        abrir: true,
+        mensaje: "Se actualizo correctamente",
+        tipo: "success",
+      });
+    }
+    setTimeout(() => {
+      setAlerta({ abrir: false });
+    }, 4000);
   };
 
   return (
@@ -114,7 +128,7 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
           <div className="d-flex align-items-center">
             <img
               src={usuarioFoto}
-              alt=""
+              alt="Usuario Foto"
               style={{ width: "45px", height: "45px" }}
               className="rounded-circle"
             />
@@ -144,6 +158,7 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
                 className="d-block text-muted mb-0 border-0 data-disable"
                 name="contrasena"
                 value={values.contrasena}
+                onFocus={()=> {setFieldValue("contrasena", "")}}
                 onChange={handleChange}
               />
               {errors.contrasena ? (
@@ -158,6 +173,7 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
             name="dni"
             value={values.dni}
             onChange={handleChange}
+            disabled
           />
           {errors.dni ? <div className="text-danger">{errors.dni}</div> : null}
           <input

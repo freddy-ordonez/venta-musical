@@ -13,7 +13,7 @@ export const Hero = () => {
         <p className="fs-3 fw-bold my-5">
           Explora nuestra amplia colección de canciones, álbumes y playlists
           curadas con cuidado, diseñadas para satisfacer todos los gustos y
-          estados de ánimo
+          estados de ánimo.
         </p>
         {!login ? (
           <Link

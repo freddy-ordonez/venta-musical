@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { Usuario } from "../Model/Usuario.mjs";
+import {compare} from 'bcrypt'
 
 const router = Router();
 
@@ -13,18 +14,17 @@ router.post("/api/login", async (request, response) => {
   const { correoElectronico, contrasena } = request.body;
   try {
     const [usuario, ...resto] = await Usuario.find({
-      correoElectronico,
-      contrasena,
+      correoElectronico
     })
       .populate({ path: "metodoPago", select: "id numeroTarjeta" })
       .populate({ path: "tipoUsuario", select: "id tipoUsuario" })
+      .populate("canciones")
       .exec();
-    if (usuario) {
-      request.session.user = usuario;
-      request.session.visited = true;
-      return response.status(200).send({ login: true, usuario });
-    }
-    return response.status(400).send({ login: false });
+    if (!usuario || !compare(contrasena, usuario.contrasena)) return response.status(400).send({ login: false });
+    
+    request.session.user = usuario;
+    request.session.visited = true;
+    return response.status(200).send({ login: true, usuario });
   } catch (error) {
     console.error("Error al hacer login", error);
   }

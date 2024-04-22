@@ -70,4 +70,12 @@ export const usuarioValidacion = checkSchema({
       errorMessage: "Tipo Usuario tiene que ser de tipo string",
     },
   },
+  numeroTarjeta: {
+    notEmpty: {
+      errorMessage: "Numero Tarjeta es requerido",
+    },
+    isString: {
+      errorMessage: "Numero Tarjeta tiene que ser de tipo string",
+    }
+  }
 });

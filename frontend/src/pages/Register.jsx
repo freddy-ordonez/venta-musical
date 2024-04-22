@@ -59,7 +59,6 @@ export const Register = () => {
         tipoUsuario: "660e1bd1021306d71c23cd9b",
       };
       agregarUsuario(usuario);
-      resetForm();
       navigate(-1);
     },
   });

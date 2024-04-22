@@ -1,4 +1,4 @@
-export const UserConfig = ({ values, handleChange, errors }) => {
+export const UserConfig = ({ values, handleChange, errors, setFieldValue }) => {
   return (
     <>
       <div class="d-flex justify-content-between align-items-center mb-3">
@@ -32,12 +32,13 @@ export const UserConfig = ({ values, handleChange, errors }) => {
         <div class="col-md-12">
           <label class="labels">Contraseña</label>
           <input
-            type="text"
+            type="password"
             class="form-control"
             placeholder=""
             id="contrasena"
             value={values.contrasena}
             onChange={handleChange}
+            onFocus={()=> setFieldValue("contrasena", "")}
           />
           {errors.contrasena ? (
             <div className="text-danger">{errors.contrasena}</div>

@@ -15,7 +15,6 @@ const metodoPagoEsquema = new mongoose.Schema({
   usuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Usuario",
-    require: true,
   },
 });
 
