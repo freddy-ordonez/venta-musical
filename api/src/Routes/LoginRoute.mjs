@@ -1,38 +1,12 @@
 import { Router } from "express";
-import { Usuario } from "../Model/Usuario.mjs";
-import {compare} from 'bcrypt'
+import {autenticar, logearse, cerrarSesion} from '../Controller/LoginController.mjs'
 
 const router = Router();
 
-router.get("/api/login", (request, response) => {
-  const usuario = request.session.user;
-  if (usuario) return response.send({ login: true, usuario });
-  return response.send({ login: false });
-});
+router.get("/api/login", autenticar);
 
-router.post("/api/login", async (request, response) => {
-  const { correoElectronico, contrasena } = request.body;
-  try {
-    const [usuario, ...resto] = await Usuario.find({
-      correoElectronico
-    })
-      .populate({ path: "metodoPago", select: "id numeroTarjeta" })
-      .populate({ path: "tipoUsuario", select: "id tipoUsuario" })
-      .populate("canciones")
-      .exec();
-    if (!usuario || !compare(contrasena, usuario.contrasena)) return response.status(400).send({ login: false });
-    
-    request.session.user = usuario;
-    request.session.visited = true;
-    return response.status(200).send({ login: true, usuario });
-  } catch (error) {
-    console.error("Error al hacer login", error);
-  }
-});
+router.post("/api/login", logearse);
 
-router.get("/api/cerrar-sesion", (request, response) => {
-  request.session.destroy()
-  response.status(200).send({logout:true})
-});
+router.get("/api/cerrar-sesion", cerrarSesion);
 
 export default router;

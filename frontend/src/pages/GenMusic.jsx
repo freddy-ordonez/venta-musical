@@ -21,15 +21,15 @@ export const GenMusic = () => {
       <div>
         <button
           type="button"
-          class="btn btn-dark rounded-0 fs-4 mb-4"
+          className="btn btn-dark rounded-0 fs-4 mb-4"
           data-bs-toggle="modal"
           data-bs-target="#modalAgregarGenero"
         >
           Agregar Genero Musical
         </button>
       </div>
-      <table class="table align-middle mb-0 bg-white">
-        <thead class="bg-light">
+      <table className="table align-middle mb-0 bg-white">
+        <thead className="bg-light">
           <tr>
             <th>Nombre</th>
             <th>Descripcion</th>

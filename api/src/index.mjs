@@ -17,6 +17,7 @@ import rutasFactura from "./Routes/FacturaRoutes.mjs";
 
 import "./Data/data.mjs";
 import { multerUpload } from "./Utils/midleware/multer.mjs";
+import { agregarDatosArranque } from "./Utils/datosArranqueApp.mjs";
 
 const app = express();
 
@@ -44,6 +45,8 @@ app.use(
     },
   })
 );
+
+agregarDatosArranque();
 
 app.use((request, response, next) => {
   next();

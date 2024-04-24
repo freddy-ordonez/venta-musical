@@ -134,7 +134,7 @@ export const estadoUsuario = create((set, get) => ({
   todosTiposUsuarios: async () => {
     try {
       const { data } = await axios.get(`${SERVER}${tipoUsuarios}`);
-      set((state) => ({ ...state, tipoUsuarios: data }));
+      set((state) => ({ ...state, tiposUsuarios: data }));
     } catch (error) {
       console.error("Error al traer los tipos de usuarios", error);
     }

@@ -9,7 +9,7 @@ export const Users = () => {
     todosTiposUsuarios();
   }, []);
 
-  const tiposUsuarios = estadoUsuario((state) => state.tipoUsuarios);
+  const tiposUsuarios = estadoUsuario((state) => state.tiposUsuarios);
   const usuarios = estadoUsuario((state) => state.usuarios);
   const { todosTiposUsuarios } = estadoUsuario();
 
@@ -25,7 +25,7 @@ export const Users = () => {
         <Alert mensaje={alerta.mensaje} tipo={alerta.tipo} />
       ) : null}
       <div>
-        <Link class="btn btn-dark rounded-0 fs-4 mb-4" to={"/registrarse"}>
+        <Link className="btn btn-dark rounded-0 fs-4 mb-4" to={"/registrarse"}>
           Agregar Usuario
         </Link>
       </div>

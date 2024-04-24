@@ -4,24 +4,24 @@ export const ModalGen = () => {
   return (
     <div>
       <div
-        class="modal fade"
+        className="modal fade"
         id="modalAgregarGenero"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content rounded-0 w-75">
-            <div class="modal-header border-bottom-0">
-              <h1 class="modal-title fs-3 fw-bold">Agregar Genero</h1>
+        <div className="modal-dialog">
+          <div className="modal-content rounded-0 w-75">
+            <div className="modal-header border-bottom-0">
+              <h1 className="modal-title fs-3 fw-bold">Agregar Genero</h1>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <FormGen />
             </div>
           </div>

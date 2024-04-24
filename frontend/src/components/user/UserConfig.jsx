@@ -1,15 +1,15 @@
 export const UserConfig = ({ values, handleChange, errors, setFieldValue }) => {
   return (
     <>
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="text-right fs-3 fw-bold">Configuracion Perfil</h4>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h4 className="text-right fs-3 fw-bold">Configuracion Perfil</h4>
       </div>
-      <div class="row mt-2">
-        <div class="col-md-6">
-          <label class="labels">Nombre</label>
+      <div className="row mt-2">
+        <div className="col-md-6">
+          <label className="labels">Nombre</label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             id="nombre"
             value={values.nombre}
             onChange={handleChange}
@@ -18,22 +18,22 @@ export const UserConfig = ({ values, handleChange, errors, setFieldValue }) => {
             <div className="text-danger">{errors.nombre}</div>
           ) : null}
         </div>
-        <div class="col-md-6">
-          <label class="labels">Cedula</label>
+        <div className="col-md-6">
+          <label className="labels">Cedula</label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             value={values.dni}
             disabled={true}
           />
         </div>
       </div>
-      <div class="row mt-3">
-        <div class="col-md-12">
-          <label class="labels">Contraseña</label>
+      <div className="row mt-3">
+        <div className="col-md-12">
+          <label className="labels">Contraseña</label>
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             placeholder=""
             id="contrasena"
             value={values.contrasena}
@@ -45,12 +45,12 @@ export const UserConfig = ({ values, handleChange, errors, setFieldValue }) => {
           ) : null}
         </div>
       </div>
-      <div class="row mt-3">
-        <div class="col-md-12">
-          <label class="labels">Email</label>
+      <div className="row mt-3">
+        <div className="col-md-12">
+          <label className="labels">Email</label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             id="correoElectronico"
             value={values.correoElectronico}
             onChange={handleChange}

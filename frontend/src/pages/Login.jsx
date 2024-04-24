@@ -18,7 +18,6 @@ export const Login = () => {
     ),
     contrasena: Yup.string()
       .min(8, "Minimo 8 caracteres")
-      .max(12, "Maximo 12 caracteres")
       .required("La contraseña es requerida"),
   });
 
@@ -42,29 +41,29 @@ export const Login = () => {
     },
   });
   return (
-    <section class="vh-100" style={{ backgroundColor: "#282C32" }}>
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col col-xl-10">
-            <div class="card rounded-0">
-              <div class="row g-0">
-                <div class="col-md-6 col-lg-5 d-none d-md-block">
+    <section className="vh-100" style={{ backgroundColor: "#282C32" }}>
+      <div className="container py-5 h-100">
+        <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="col col-xl-10">
+            <div className="card rounded-0">
+              <div className="row g-0">
+                <div className="col-md-6 col-lg-5 d-none d-md-block">
                   <img
                     src={musica}
                     alt="login form"
-                    class="img-fluid"
+                    className="img-fluid"
                     style={{ height: "100%" }}
                   />
                 </div>
-                <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                  <div class="card-body p-4 p-lg-5 text-black">
+                <div className="col-md-6 col-lg-7 d-flex align-items-center">
+                  <div className="card-body p-4 p-lg-5 text-black">
                     <form onSubmit={formik.handleSubmit}>
-                      <div class="d-flex align-items-center mb-3 pb-1">
-                        <h1 className="fs-3 fw-bold">JF.Music</h1>
+                      <div className="d-flex align-items-center mb-3 pb-1">
+                        <Link className="fs-3 fw-bold text-decoration-none text-dark" to={"/"}>JF.Music</Link>
                       </div>
 
                       <h5
-                        class="fw-normal mb-3 pb-3"
+                        className="fw-normal mb-3 pb-3"
                         style={{ letterSpacing: "1px" }}
                       >
                         Inicia Sesión
@@ -76,7 +75,7 @@ export const Login = () => {
                         />
                       ) : null}
 
-                      <div class="form-outline mb-4">
+                      <div className="form-outline mb-4">
                         {formik.errors.correoElectronico ? (
                           <div className="text-danger">
                             {formik.errors.correoElectronico}
@@ -87,14 +86,14 @@ export const Login = () => {
                           id="correoElectronico"
                           value={formik.values.correoElectronico}
                           onChange={formik.handleChange}
-                          class="form-control form-control-lg"
+                          className="form-control form-control-lg"
                         />
-                        <label class="form-label" for="correoElectronico">
+                        <label className="form-label" htmlFor="correoElectronico">
                           Correo Electronico
                         </label>
                       </div>
 
-                      <div class="form-outline mb-4">
+                      <div className="form-outline mb-4">
                         {formik.errors.contrasena ? (
                           <div className="text-danger">
                             {formik.errors.contrasena}
@@ -105,28 +104,28 @@ export const Login = () => {
                           id="contrasena"
                           value={formik.values.contrasena}
                           onChange={formik.handleChange}
-                          class="form-control form-control-lg"
+                          className="form-control form-control-lg"
                         />
-                        <label class="form-label" for="form2Example27">
+                        <label className="form-label" htmlFor="form2Example27">
                           Contraseña
                         </label>
                       </div>
 
-                      <div class="pt-1 mb-4">
+                      <div className="pt-1 mb-4">
                         <button
-                          class="btn btn-dark btn-lg btn-block rounded-0"
+                          className="btn btn-dark btn-lg btn-block rounded-0"
                           type="submit"
                         >
                           Inicia Sesión
                         </button>
                       </div>
-                      <p class="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
+                      <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                         No tienes una cuenta aún?{" "}
                         <Link to="/registrarse" style={{ color: "#393f81" }}>
                           Registrate aqui!
                         </Link>
                       </p>
-                      <a href="#!" class="small text-muted">
+                      <a href="#!" className="small text-muted">
                         Politica de privacidad
                       </a>
                     </form>

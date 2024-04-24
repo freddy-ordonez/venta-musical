@@ -11,45 +11,45 @@ export const CardItemShooping = ({ cancion }) => {
   const { nombre, precio } = cancion;
   return (
     <>
-      <div class="row mb-4 d-flex justify-content-between align-items-center">
-        <div class="col-md-2 col-lg-2 col-xl-2">
+      <div className="row mb-4 d-flex justify-content-between align-items-center">
+        <div className="col-md-2 col-lg-2 col-xl-2">
           <img
             src={`${path}${cancion.imagen}`}
-            class="img-fluid rounded-3"
+            className="img-fluid rounded-3"
             alt="Imagen Cancion"
           />
         </div>
-        <div class="col-md-3 col-lg-3 col-xl-3">
-          <h6 class="text-muted">Nombre</h6>
-          <h6 class="text-black mb-0">{nombre}</h6>
+        <div className="col-md-3 col-lg-3 col-xl-3">
+          <h6 className="text-muted">Nombre</h6>
+          <h6 className="text-black mb-0">{nombre}</h6>
         </div>
-        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-          <button class="btn btn-link px-2">
-            <i class="fas fa-minus"></i>
+        <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
+          <button className="btn btn-link px-2">
+            <i className="fas fa-minus"></i>
           </button>
 
           <span>Cantidad 1</span>
 
-          <button class="btn btn-link px-2">
-            <i class="fas fa-plus"></i>
+          <button className="btn btn-link px-2">
+            <i className="fas fa-plus"></i>
           </button>
         </div>
-        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-          <h6 class="text-muted">Precio</h6>
-          <h6 class="mb-0">€ {precio}</h6>
+        <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+          <h6 className="text-muted">Precio</h6>
+          <h6 className="mb-0">€ {precio}</h6>
         </div>
-        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+        <div className="col-md-1 col-lg-1 col-xl-1 text-end">
           <button
             href="#!"
             className="text-muted border-0 bg-white"
             onClick={manejoEliminarCancionCarrito}
           >
-            <span class="close">&#10005;</span>
+            <span className="close">&#10005;</span>
           </button>
         </div>
       </div>
 
-      <hr class="my-4" />
+      <hr className="my-4" />
     </>
   );
 };

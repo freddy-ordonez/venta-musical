@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { Dropdown } from "../common/Dropdown";
 import { NavCollapse } from "./NavCollapse";
 import { estadoUsuario } from "../../store/userStore";
@@ -7,10 +7,10 @@ export const Header = () => {
   const usuario = estadoUsuario((state) => state.login);
   return (
     <>
-      <nav class="nav navbar navbar-expand-lg">
-        <div class="container">
+      <nav className="nav navbar navbar-expand-lg">
+        <div className="container">
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -18,11 +18,11 @@ export const Header = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <a class="logo navbar-brand fw-bold fs-2" href="#">
+          <Link className="logo navbar-brand fw-bold fs-2" to={"/"}>
             JF.Music
-          </a>
+          </Link>
           <NavCollapse
             tipoUsuario={
               usuario ? usuario.tipoUsuario["tipoUsuario"] : "USUARIO"

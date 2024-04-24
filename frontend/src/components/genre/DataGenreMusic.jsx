@@ -38,11 +38,11 @@ export const DataGenreMusic = ({ genero }) => {
     <>
       <tr>
         <td style={{ width: "15%" }}>
-          <div class="d-flex align-items-center overflow-hidden">
-            <div class="ms-3">
+          <div className="d-flex align-items-center overflow-hidden">
+            <div className="ms-3">
               <input
                 type="text"
-                class="fw-bold mb-1 border-0 data-disable"
+                className="fw-bold mb-1 border-0 data-disable"
                 value={gen.nombre}
                 ref={refNombre}
                 onChange={(e) =>
@@ -56,7 +56,7 @@ export const DataGenreMusic = ({ genero }) => {
         <td className="w-50">
           <textarea
             type="text"
-            class="w-100 fw-normal mb-1 border-0 data-disable"
+            className="w-100 fw-normal mb-1 border-0 data-disable"
             value={gen.descripcion}
             disabled
             ref={refDescripcion}
@@ -70,7 +70,7 @@ export const DataGenreMusic = ({ genero }) => {
         <td>
           <button
             type="button"
-            class="btn btn-dark rounded-0"
+            className="btn btn-dark rounded-0"
             onClick={manejoClickActualizar}
             ref={refEditar}
           >
@@ -78,7 +78,7 @@ export const DataGenreMusic = ({ genero }) => {
           </button>
           <button
             type="button"
-            class="btn btn-dark rounded-0 ms-lg-3"
+            className="btn btn-dark rounded-0 ms-lg-3"
             ref={refGuardar}
             onClick={manejoClikGuardar}
           >
@@ -86,7 +86,7 @@ export const DataGenreMusic = ({ genero }) => {
           </button>
           <button
             type="button"
-            class="btn btn-dark rounded-0 ms-lg-3"
+            className="btn btn-dark rounded-0 ms-lg-3"
             onClick={manejoClikEliminar}
           >
             Eliminar

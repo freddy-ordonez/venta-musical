@@ -42,13 +42,13 @@ export const FormGen = () => {
         <Alert mensaje={alert.mensaje} tipo={alert.tipo} />
       )}
       <form onSubmit={formik.handleSubmit}>
-        <div class="mb-3">
-          <label htmlFor="Nombre" class="form-label fs-4">
+        <div className="mb-3">
+          <label htmlFor="Nombre" className="form-label fs-4">
             Nombre
           </label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             id="nombre"
             onChange={formik.handleChange}
             value={formik.values.nombre}
@@ -57,14 +57,14 @@ export const FormGen = () => {
             <div className="text-danger">{formik.errors.nombre}</div>
           ) : null}
         </div>
-        <div class="mb-3">
-          <label htmlFor="descripcion" class="form-label fs-4">
+        <div className="mb-3">
+          <label htmlFor="descripcion" className="form-label fs-4">
             Descripcion
           </label>
           <textarea
             id="descripcion"
             type="text"
-            class="form-control"
+            className="form-control"
             onChange={formik.handleChange}
             value={formik.values.descripcion}
             rows={10}
@@ -74,8 +74,8 @@ export const FormGen = () => {
             <div className="text-danger">{formik.errors.descripcion}</div>
           ) : null}
         </div>
-        <div class="modal-footer border-top-0">
-          <button type="submit" class="btn btn-secondary rounded-0">
+        <div className="modal-footer border-top-0">
+          <button type="submit" className="btn btn-secondary rounded-0">
             Agregar
           </button>
         </div>

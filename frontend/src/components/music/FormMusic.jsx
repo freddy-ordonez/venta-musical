@@ -99,13 +99,13 @@ export const FormMusic = () => {
     <div>
       <form onSubmit={formik.handleSubmit}>
         {alert ? <Alert mensaje={alert.mensaje} tipo={alert.tipo} /> : null}
-        <div class="mb-3">
-          <label for="Nombre" class="form-label fs-4">
+        <div className="mb-3">
+          <label htmlFor="Nombre" className="form-label fs-4">
             Nombre
           </label>
           <input
             type="Nombre"
-            class="form-control"
+            className="form-control"
             name="nombre"
             onChange={formik.handleChange}
             value={formik.values.nombre}
@@ -114,14 +114,14 @@ export const FormMusic = () => {
             <div className="text-danger">{formik.errors.nombre}</div>
           ) : null}
         </div>
-        <div class="mb-3">
-          <label for="Precio" class="form-label fs-4">
+        <div className="mb-3">
+          <label htmlFor="Precio" className="form-label fs-4">
             Precio
           </label>
           <input
             name="precio"
             type="number"
-            class="form-control"
+            className="form-control"
             onChange={formik.handleChange}
             value={formik.values.precio}
           />
@@ -129,12 +129,12 @@ export const FormMusic = () => {
             <div className="text-danger">{formik.errors.precio}</div>
           ) : null}
         </div>
-        <div class="mb-3">
-          <label for="imagen-cancion" class="form-label fs-4">
+        <div className="mb-3">
+          <label htmlFor="imagen-cancion" className="form-label fs-4">
             Imagen
           </label>
           <input
-            class="form-control"
+            className="form-control"
             type="file"
             id="imagen-cancion"
             accept={tomarExtensionesPermitidas("imagen")}
@@ -148,14 +148,14 @@ export const FormMusic = () => {
           ) : null}
         </div>
         <div className="mb-3">
-          <label for="genero" class="form-label fs-4">
+          <label htmlFor="genero" className="form-label fs-4">
             Genero
           </label>
           {formik.errors.generoMusical ? (
             <div className="text-danger">{formik.errors.generoMusical}</div>
           ) : null}
           <select
-            class="form-select"
+            className="form-select"
             name="generoMusical"
             aria-label="Default select example"
             onChange={formik.handleChange}
@@ -171,8 +171,8 @@ export const FormMusic = () => {
             ))}
           </select>
         </div>
-        <div class="modal-footer border-top-0">
-          <button type="submit" class="btn btn-secondary rounded-0">
+        <div className="modal-footer border-top-0">
+          <button type="submit" className="btn btn-secondary rounded-0">
             Agregar
           </button>
         </div>

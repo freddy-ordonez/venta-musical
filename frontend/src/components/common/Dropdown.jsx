@@ -11,17 +11,17 @@ export const Dropdown = ({ usuario }) => {
   };
 
   return (
-    <div class="btn-group">
+    <div className="btn-group">
       <button
         type="button"
-        class="avatar btn btn-dark fs-4 dropdown-toggle rounded-0"
+        className="avatar btn btn-dark fs-4 dropdown-toggle rounded-0"
         data-bs-toggle="dropdown"
         data-bs-display="static"
         aria-expanded="false"
       >
-        {usuario.nombre}
+        {usuario.nombre.toUpperCase()}
       </button>
-      <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end fs-5">
+      <ul className="dropdown-menu dropdown-menu-start dropdown-menu-lg-end fs-5">
         <li>
           <Link className="dropdown-item" to="perfil">
             Perfil
