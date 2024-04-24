@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import { estadoUsuario } from "../store/userStore";
-import {useNavigate} from 'react-router-dom'
+import { estadoUsuario } from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
 
-export const Dropdown = ({usuario}) => {
-  const navigate = useNavigate()
-  const {cerrarSesion} = estadoUsuario()
-  const manejoCerrarSesion = ()=> {
-    cerrarSesion()
-    navigate("/")
-  }
+export const Dropdown = ({ usuario }) => {
+  const navigate = useNavigate();
+  const { cerrarSesion } = estadoUsuario();
+  const manejoCerrarSesion = () => {
+    cerrarSesion();
+    navigate("/");
+  };
 
   return (
     <div class="btn-group">

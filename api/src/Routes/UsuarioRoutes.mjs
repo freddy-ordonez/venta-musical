@@ -64,8 +64,11 @@ router.post("/api/usuarios", usuarioValidacion, async (request, response) => {
     await encontrarTipoUsuario.save();
     metodoPagoAgregado.usuario = guardarUsuario._id;
     const metodoPagoSave = await metodoPagoAgregado.save();
-    // const usuarioGuardado = await guardarUsuario.populate("metodoPago");
-    return response.status(201).send(guardarUsuario);
+    const usuarioPopulate = await Usuario.findById(guardarUsuario._id)
+      .populate({ path: "tipoUsuario", select: "_id tipoUsuario" })
+      .populate({ path: "metodoPago", select: "_id numeroTarjeta" });
+    console.log(usuarioPopulate);
+    return response.status(201).send(usuarioPopulate);
   } catch (err) {
     console.log(err);
     return response.status(500).send({

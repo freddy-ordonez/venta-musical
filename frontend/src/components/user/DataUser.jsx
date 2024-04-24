@@ -1,12 +1,12 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { number } from "card-validator";
-import { estadoUsuario } from "../store/userStore";
-import usuarioFoto from "../assets/usuario.png";
+import { estadoUsuario } from "../../store/userStore";
+import usuarioFoto from "../../assets/usuario.png";
 
 export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
   const usuarios = estadoUsuario((state) => state.usuarios);
-  const { actualizarUsuario, eliminarUsuario} = estadoUsuario();
+  const { actualizarUsuario, eliminarUsuario } = estadoUsuario();
   const {
     nombre,
     dni,
@@ -34,8 +34,7 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
         validarTarjeta(value)
       )
       .required("El metodo de pago es requerido"),
-    contrasena: Yup.string()
-      .required("La contraseña es requerida"),
+    contrasena: Yup.string().required("La contraseña es requerida"),
     correoElectronico: Yup.string()
       .email("El correo electrónico no tiene un formato válido")
       .required("El correo electrónico es requerido")
@@ -47,59 +46,60 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
       .matches(/^[MF]$/, "Solo M o F"),
   });
 
-  const { values, handleChange, handleSubmit, errors, setFieldValue} = useFormik({
-    initialValues: {
-      nombre,
-      dni,
-      correoElectronico,
-      contrasena,
-      numeroTarjeta,
-      genero,
-      tipoUsuario: tipoUser,
-    },
-    validationSchema: validacionUsuario,
-    onSubmit: async (values, { resetForm }) => {
-      console.log("entro");
-      const {
+  const { values, handleChange, handleSubmit, errors, setFieldValue } =
+    useFormik({
+      initialValues: {
         nombre,
         dni,
-        contrasena,
         correoElectronico,
+        contrasena,
         numeroTarjeta,
         genero,
-        tipoUsuario,
-      } = values;
-      const usuarioActualizar = {
-        ...usuario,
-        nombre,
-        dni,
-        contrasena,
-        correoElectronico,
-        genero,
-        tipoUsuario,
-      };
-      usuarioActualizar.metodoPago.numeroTarjeta = numeroTarjeta;
-      const usuarioFueActualizado = await actualizarUsuario(
-        usuarioActualizar._id,
-        usuarioActualizar
-      );
-      if (usuarioFueActualizado)
-        setAlerta({
-          abrir: usuarioFueActualizado,
-          mensaje: "Se actualizo correctamente",
-          tipo: "success",
-        });
-      else
-        setAlerta({
-          abrir: usuarioFueActualizado,
-          mensaje: "Hubo un problema al actualizar el usuario",
-          tipo: "danger",
-        });
-      setTimeout(() => {
-        setAlerta({ abrir: false });
-      }, 4000);
-    },
-  });
+        tipoUsuario: tipoUser,
+      },
+      validationSchema: validacionUsuario,
+      onSubmit: async (values, { resetForm }) => {
+        console.log("entro");
+        const {
+          nombre,
+          dni,
+          contrasena,
+          correoElectronico,
+          numeroTarjeta,
+          genero,
+          tipoUsuario,
+        } = values;
+        const usuarioActualizar = {
+          ...usuario,
+          nombre,
+          dni,
+          contrasena,
+          correoElectronico,
+          genero,
+          tipoUsuario,
+        };
+        usuarioActualizar.metodoPago.numeroTarjeta = numeroTarjeta;
+        const usuarioFueActualizado = await actualizarUsuario(
+          usuarioActualizar._id,
+          usuarioActualizar
+        );
+        if (usuarioFueActualizado)
+          setAlerta({
+            abrir: usuarioFueActualizado,
+            mensaje: "Se actualizo correctamente",
+            tipo: "success",
+          });
+        else
+          setAlerta({
+            abrir: usuarioFueActualizado,
+            mensaje: "Hubo un problema al actualizar el usuario",
+            tipo: "danger",
+          });
+        setTimeout(() => {
+          setAlerta({ abrir: false });
+        }, 4000);
+      },
+    });
 
   const manejoClickBorrar = async () => {
     const data = eliminarUsuario(usuario._id);
@@ -108,8 +108,8 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
         abrir: true,
         mensaje: "Se elimino correctamente",
         tipo: "success",
-      }); 
-    }else {
+      });
+    } else {
       setAlerta({
         abrir: true,
         mensaje: "Se actualizo correctamente",
@@ -158,7 +158,9 @@ export const DataUser = ({ usuario, tiposUsuarios, setAlerta }) => {
                 className="d-block text-muted mb-0 border-0 data-disable"
                 name="contrasena"
                 value={values.contrasena}
-                onFocus={()=> {setFieldValue("contrasena", "")}}
+                onFocus={() => {
+                  setFieldValue("contrasena", "");
+                }}
                 onChange={handleChange}
               />
               {errors.contrasena ? (

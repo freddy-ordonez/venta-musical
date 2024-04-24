@@ -1,12 +1,12 @@
-import { PaymentMethod } from "../components/PaymentMethod";
-import { ProfileLeft } from "../components/ProfileLeft";
-import { UserConfig } from "../components/UserConfig";
+import { PaymentMethod } from "../components/user/PaymentMethod";
+import { ProfileLeft } from "../components/user/ProfileLeft";
+import { UserConfig } from "../components/user/UserConfig";
 import { estadoUsuario } from "../store/userStore";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { number } from "card-validator";
 import { useState } from "react";
-import { Alert } from "../components/Alert";
+import { Alert } from "../components/common/Alert";
 
 export const Profile = () => {
   const [alerta, setAlerta] = useState({
@@ -42,47 +42,48 @@ export const Profile = () => {
       ),
   });
 
-  const { values, handleChange, handleSubmit, errors, setFieldValue } = useFormik({
-    initialValues: {
-      nombre,
-      dni,
-      contrasena,
-      correoElectronico,
-      numeroTarjeta,
-    },
-    validationSchema: validacionUsuario,
-    onSubmit: async (values) => {
-      const { nombre, dni, contrasena, correoElectronico, numeroTarjeta } =
-        values;
-      const usuarioActualizar = {
-        ...usuario,
+  const { values, handleChange, handleSubmit, errors, setFieldValue } =
+    useFormik({
+      initialValues: {
         nombre,
         dni,
         contrasena,
         correoElectronico,
-      };
-      usuarioActualizar.metodoPago.numeroTarjeta = numeroTarjeta;
-      const usuarioFueActualizado = await actualizarPerfil(
-        usuarioActualizar._id,
-        usuarioActualizar
-      );
-      if (usuarioFueActualizado)
-        setAlerta({
-          abrir: usuarioFueActualizado,
-          mensaje: "Se actualizo correctamente",
-          tipo: "success",
-        });
-      else
-        setAlerta({
-          abrir: usuarioFueActualizado,
-          mensaje: "Hubo un problema al actualizar el usuario",
-          tipo: "danger",
-        });
-      setTimeout(() => {
-        setAlerta({ abrir: false });
-      }, 4000);
-    },
-  });
+        numeroTarjeta,
+      },
+      validationSchema: validacionUsuario,
+      onSubmit: async (values) => {
+        const { nombre, dni, contrasena, correoElectronico, numeroTarjeta } =
+          values;
+        const usuarioActualizar = {
+          ...usuario,
+          nombre,
+          dni,
+          contrasena,
+          correoElectronico,
+        };
+        usuarioActualizar.metodoPago.numeroTarjeta = numeroTarjeta;
+        const usuarioFueActualizado = await actualizarPerfil(
+          usuarioActualizar._id,
+          usuarioActualizar
+        );
+        if (usuarioFueActualizado)
+          setAlerta({
+            abrir: usuarioFueActualizado,
+            mensaje: "Se actualizo correctamente",
+            tipo: "success",
+          });
+        else
+          setAlerta({
+            abrir: usuarioFueActualizado,
+            mensaje: "Hubo un problema al actualizar el usuario",
+            tipo: "danger",
+          });
+        setTimeout(() => {
+          setAlerta({ abrir: false });
+        }, 4000);
+      },
+    });
 
   return (
     <div
@@ -97,9 +98,9 @@ export const Profile = () => {
           />
           <div class="col-md-5 border-right">
             <div class="p-3 py-5 fw-bold">
-            {alerta.abrir ? (
-            <Alert mensaje={alerta.mensaje} tipo={alerta.tipo} />
-          ) : null}
+              {alerta.abrir ? (
+                <Alert mensaje={alerta.mensaje} tipo={alerta.tipo} />
+              ) : null}
               <UserConfig
                 values={values}
                 handleChange={handleChange}

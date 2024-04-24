@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { estadoCarritoCompras } from "../store/cartShoopingStore";
+import { estadoCarritoCompras } from "../../store/cartShoopingStore";
 
 export const Card = ({ cancion, tipoUsuario, children, deshabilitar }) => {
   const path = `http://localhost:4000/public/${cancion.imagen}`;

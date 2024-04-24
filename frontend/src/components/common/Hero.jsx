@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { estadoUsuario } from "../store/userStore";
+import { estadoUsuario } from "../../store/userStore";
 
 export const Hero = () => {
   const login = estadoUsuario((state) => state.login);

@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import { DataGenreMusic } from "../components/DataGenreMusic";
+import { DataGenreMusic } from "../components/genre/DataGenreMusic";
 import { estadoGeneroMusical } from "../store/genMusicStore";
-import { ModalGen } from "../components/ModalGen";
-
+import { ModalGen } from "../components/genre/ModalGen";
 
 export const GenMusic = () => {
   const generos = estadoGeneroMusical((state) => state.generos);

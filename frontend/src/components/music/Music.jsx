@@ -1,15 +1,15 @@
 import { ButtomMusic } from "./ButtonMusic";
-import { Card } from "./Card";
+import { Card } from "../common/Card";
 import { ModalMusic } from "./ModalMusic";
-import { estadoCancion } from "../store/songStore";
+import { estadoCancion } from "../../store/songStore";
 import { useEffect, useState } from "react";
-import { estadoUsuario } from "../store/userStore";
-import { Alert } from "./Alert";
+import { estadoUsuario } from "../../store/userStore";
+import { Alert } from "../common/Alert";
 
 export const Music = () => {
-  const {canciones, eliminarCancion} = estadoCancion();
+  const { canciones, eliminarCancion } = estadoCancion();
   const usuario = estadoUsuario((state) => state.login);
-  const arrayCancionesUsuario = usuario?.canciones.map(c => c._id)
+  const arrayCancionesUsuario = usuario?.canciones.map((c) => c._id);
 
   const [alert, setAlert] = useState({
     abrir: false,
@@ -28,7 +28,9 @@ export const Music = () => {
       cancion={cancion}
       tipoUsuario={tipoUsuario}
       manejoClickEliminar={manejoClickEliminar}
-      deshabilitar={usuario ? arrayCancionesUsuario.includes(cancion._id) : false}
+      deshabilitar={
+        usuario ? arrayCancionesUsuario.includes(cancion._id) : false
+      }
     />
   ));
 

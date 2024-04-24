@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { estadoGeneroMusical } from "../store/genMusicStore";
+import { estadoGeneroMusical } from "../../store/genMusicStore";
 
 export const DataGenreMusic = ({ genero }) => {
   const [actualizar, setActualizar] = useState(false);

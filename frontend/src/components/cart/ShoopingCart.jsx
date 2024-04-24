@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { CardItemShooping } from "./CardItemShooping";
 import { SummaryShoopingCart } from "./SummaryShoopingCart";
-import { estadoCarritoCompras } from "../store/cartShoopingStore";
-import { estadoUsuario } from "../store/userStore";
-import {  useState } from "react";
-import { Alert } from "./Alert";
+import { estadoCarritoCompras } from "../../store/cartShoopingStore";
+import { estadoUsuario } from "../../store/userStore";
+import { useState } from "react";
+import { Alert } from "../common/Alert";
 
 export const ShoopingCart = () => {
   const [abrirModal, setAbrirModal] = useState({
@@ -41,15 +41,17 @@ export const ShoopingCart = () => {
         tipoMensaje: "danger",
       });
     }
-    setTimeout(()=> {
-      setAbrirModal({abrir: false})
-    }, 3000)
+    setTimeout(() => {
+      setAbrirModal({ abrir: false });
+    }, 3000);
   };
 
   return (
     <section class="h-100 h-custom" style={{ backgroundColor: "#CFD6E5" }}>
       <div class="container py-5 h-100">
-      {abrirModal.abrir ? <Alert mensaje={abrirModal.mensaje} tipo={abrirModal.tipoMensaje} /> : null}
+        {abrirModal.abrir ? (
+          <Alert mensaje={abrirModal.mensaje} tipo={abrirModal.tipoMensaje} />
+        ) : null}
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12">
             <div

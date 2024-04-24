@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import { Dropdown } from "./Dropdown";
+import { Dropdown } from "../common/Dropdown";
 import { NavCollapse } from "./NavCollapse";
-import { estadoUsuario } from "../store/userStore";
+import { estadoUsuario } from "../../store/userStore";
 
 export const Header = () => {
   const usuario = estadoUsuario((state) => state.login);
@@ -28,7 +28,7 @@ export const Header = () => {
               usuario ? usuario.tipoUsuario["tipoUsuario"] : "USUARIO"
             }
           />
-          {usuario ? <Dropdown usuario={usuario}/> : null}
+          {usuario ? <Dropdown usuario={usuario} /> : null}
         </div>
       </nav>
       <Outlet />

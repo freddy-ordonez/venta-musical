@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { estadoUsuario } from "../store/userStore";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import {Alert} from "../components/Alert";
+import { Alert } from "../components/common/Alert";
 
 export const Login = () => {
   const [alert, setAlert] = useState(false);
@@ -69,7 +69,12 @@ export const Login = () => {
                       >
                         Inicia Sesión
                       </h5>
-                      {alert ? <Alert mensaje={"usuario o contraseña mal"} tipo={"danger"}/> : null}
+                      {alert ? (
+                        <Alert
+                          mensaje={"usuario o contraseña mal"}
+                          tipo={"danger"}
+                        />
+                      ) : null}
 
                       <div class="form-outline mb-4">
                         {formik.errors.correoElectronico ? (

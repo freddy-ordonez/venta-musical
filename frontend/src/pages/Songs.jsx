@@ -1,32 +1,35 @@
 import { useEffect } from "react";
-import { Card } from "../components/Card";
+import { Card } from "../components/common/Card";
 import { estadoCancion } from "../store/songStore";
 import { estadoUsuario } from "../store/userStore";
 
 export const Songs = () => {
-  const { canciones, eliminarCancionId} = estadoCancion();
+  const { canciones, eliminarCancionId } = estadoCancion();
   const { login } = estadoUsuario();
   const tipoUsuario = login?.tipoUsuario["tipoUsuario"];
-  const arrayCancionesUsuario = login?.canciones.map(c => c._id)
-  console.log(canciones);
+  const arrayCancionesUsuario = login?.canciones.map((c) => c._id);
 
   const cards = canciones.map((cancion) => (
     <Card key={cancion._id} cancion={cancion}>
       {tipoUsuario === "ADMINISTRADOR" ? (
         <button
           className="btn btn-secondary rounded-0"
-          onClick={() => {eliminarCancionId(cancion._id)}}
+          onClick={() => {
+            eliminarCancionId(cancion._id);
+          }}
         >
           Eliminar
         </button>
       ) : (
-        <button className="btn btn-secondary rounded-0" disabled={arrayCancionesUsuario.includes(cancion._id)}>
+        <button
+          className="btn btn-secondary rounded-0"
+          disabled={arrayCancionesUsuario?.includes(cancion._id)}
+        >
           Añadir al carrito
         </button>
       )}
     </Card>
   ));
-
 
   return (
     <div className="container my-5">

@@ -1,8 +1,8 @@
-import { ButtonCartShopping } from "./components/ButtonCartShopping";
-import { Header } from "./components/Header";
-import { Routes, Route} from "react-router-dom";
+import { ButtonCartShopping } from "./components/cart/ButtonCartShopping";
+import { Header } from "./components/header/Header";
+import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { ShoopingCart } from "./components/ShoopingCart";
+import { ShoopingCart } from "./components/cart/ShoopingCart";
 import { Profile } from "./pages/Profile";
 import { Songs } from "./pages/Songs";
 import { GenMusic } from "./pages/GenMusic";
@@ -21,14 +21,14 @@ function App() {
     todasCanciones();
     todosUsuarios();
     autenticarUsuario();
-    if(usuario) todosCancionesCarrito()
+    if (login) todosCancionesCarrito();
   }, []);
 
   const { todasCanciones } = estadoCancion();
   const { todosUsuarios, autenticarUsuario } = estadoUsuario();
-  const {todosCancionesCarrito} = estadoCarritoCompras()
-  const usuario = estadoUsuario((state) => state.login);
-  
+  const { todosCancionesCarrito } = estadoCarritoCompras();
+  const { login, usuarios } = estadoUsuario();
+
   axios.defaults.withCredentials = true;
 
   return (
@@ -37,11 +37,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/registrarse" element={<Register />} />
         <Route path="/" element={<Header />}>
-          <Route index element={<Home tipoUsuario={usuario?.tipoUsuario}/>} />
+          <Route index element={<Home tipoUsuario={login?.tipoUsuario} />} />
           <Route path="canciones" element={<Songs />} />
           <Route path="usuarios" element={<Users />} />
           <Route path="carrito" element={<ShoopingCart />} />
-          <Route path="perfil" element={usuario ? <Profile /> : null} />
+          <Route path="perfil" element={login ? <Profile /> : null} />
           <Route path="genero-musical" element={<GenMusic />} />
           <Route path="mis-canciones" element={<SongsUser />} />
         </Route>

@@ -1,14 +1,14 @@
-import { ButtonCartShopping } from "../components/ButtonCartShopping"
-import { Hero } from "../components/Hero"
-import { Music } from "../components/Music"
-import { estadoCancion } from "../store/songStore"
+import { ButtonCartShopping } from "../components/cart/ButtonCartShopping";
+import { Hero } from "../components/common/Hero";
+import { Music } from "../components/music/Music";
+import { estadoCancion } from "../store/songStore";
 
-export const Home = ({tipoUsuario}) => {
+export const Home = ({ tipoUsuario }) => {
   return (
     <>
-        <Hero />
-        <Music />
-        {tipoUsuario?.tipoUsuario === "USUARIO" ? <ButtonCartShopping /> : null}
+      <Hero />
+      <Music />
+      {tipoUsuario?.tipoUsuario === "USUARIO" ? <ButtonCartShopping /> : null}
     </>
-  )
-}
+  );
+};

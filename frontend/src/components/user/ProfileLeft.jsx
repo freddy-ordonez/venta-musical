@@ -1,4 +1,4 @@
-import usuario from "../assets/usuario.png";
+import usuario from "../../assets/usuario.png";
 
 export const ProfileLeft = ({nombre, corroElectronico}) => {
   return (

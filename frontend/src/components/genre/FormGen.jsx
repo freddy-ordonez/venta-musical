@@ -1,14 +1,14 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { estadoGeneroMusical } from "../store/genMusicStore";
+import { estadoGeneroMusical } from "../../store/genMusicStore";
 import { useState } from "react";
-import { Alert } from "./Alert";
+import { Alert } from "../common/Alert";
 
 export const FormGen = () => {
   const [alert, setAlert] = useState({
     isOpen: false,
     mensaje: "",
-    tipo: ""
+    tipo: "",
   });
   const { agregarGenero } = estadoGeneroMusical();
 
@@ -26,19 +26,21 @@ export const FormGen = () => {
       descripcion: "",
     },
     validationSchema: esquemaValidacion,
-    onSubmit: async (values,{resetForm}) => {
-      const {mensaje, tipo} = await agregarGenero(values);
-      resetForm()
-      setAlert({isOpen: true, mensaje, tipo})
-      setTimeout(()=> {
-        setAlert({isOpen: false, mensaje: "", tipo: ""})
-      }, 3000)
+    onSubmit: async (values, { resetForm }) => {
+      const { mensaje, tipo } = await agregarGenero(values);
+      resetForm();
+      setAlert({ isOpen: true, mensaje, tipo });
+      setTimeout(() => {
+        setAlert({ isOpen: false, mensaje: "", tipo: "" });
+      }, 3000);
     },
   });
 
   return (
     <div>
-      {!alert.isOpen ? null : <Alert mensaje={alert.mensaje} tipo={alert.tipo} /> }
+      {!alert.isOpen ? null : (
+        <Alert mensaje={alert.mensaje} tipo={alert.tipo} />
+      )}
       <form onSubmit={formik.handleSubmit}>
         <div class="mb-3">
           <label htmlFor="Nombre" class="form-label fs-4">

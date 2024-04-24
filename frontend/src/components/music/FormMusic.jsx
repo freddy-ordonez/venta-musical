@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { estadoGeneroMusical } from "../store/genMusicStore";
+import { estadoGeneroMusical } from "../../store/genMusicStore";
 import { useEffect, useState } from "react";
-import { estadoCancion } from "../store/songStore";
-import {Alert} from './Alert'
+import { estadoCancion } from "../../store/songStore";
+import { Alert } from "../common/Alert";
 
 export const FormMusic = () => {
   const { todosGeneros } = estadoGeneroMusical();
@@ -36,7 +36,9 @@ export const FormMusic = () => {
   const MAX_FILE_SIZE = 1024 * 1024 * 2;
 
   const esquemaValidacion = Yup.object().shape({
-    nombre: Yup.string().required("El nombre es obligatorio").max(18, "Maximo de caracteres 18"),
+    nombre: Yup.string()
+      .required("El nombre es obligatorio")
+      .max(18, "Maximo de caracteres 18"),
     precio: Yup.number("Solo numeros").required("El precio es obligatorio"),
     generoMusical: Yup.string().required("Seleccione un genero"),
     imagen: Yup.mixed()
@@ -62,14 +64,14 @@ export const FormMusic = () => {
       imagen: null,
     },
     validationSchema: esquemaValidacion,
-    onSubmit: async (values, {resetForm}) => {
+    onSubmit: async (values, { resetForm }) => {
       const formulario = new FormData();
       formulario.append("imagen", values.imagen);
       formulario.append("nombre", values.nombre);
       formulario.append("precio", values.precio);
       formulario.append("generoMusical", values.generoMusical);
       const cancionAgregada = await agregarCancion(formulario);
-      resetForm()
+      resetForm();
       if (cancionAgregada) {
         setAlert({
           abrir: true,
@@ -96,7 +98,7 @@ export const FormMusic = () => {
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
-        {alert ? <Alert mensaje={alert.mensaje} tipo={alert.tipo}/> : null}
+        {alert ? <Alert mensaje={alert.mensaje} tipo={alert.tipo} /> : null}
         <div class="mb-3">
           <label for="Nombre" class="form-label fs-4">
             Nombre
@@ -108,7 +110,9 @@ export const FormMusic = () => {
             onChange={formik.handleChange}
             value={formik.values.nombre}
           />
-          {formik.errors.nombre ? <div className="text-danger">{formik.errors.nombre}</div> : null}
+          {formik.errors.nombre ? (
+            <div className="text-danger">{formik.errors.nombre}</div>
+          ) : null}
         </div>
         <div class="mb-3">
           <label for="Precio" class="form-label fs-4">
@@ -121,7 +125,9 @@ export const FormMusic = () => {
             onChange={formik.handleChange}
             value={formik.values.precio}
           />
-          {formik.errors.precio ? <div className="text-danger">{formik.errors.precio}</div> : null}
+          {formik.errors.precio ? (
+            <div className="text-danger">{formik.errors.precio}</div>
+          ) : null}
         </div>
         <div class="mb-3">
           <label for="imagen-cancion" class="form-label fs-4">
@@ -137,13 +143,17 @@ export const FormMusic = () => {
               formik.setFieldValue("imagen", e.currentTarget.files[0]);
             }}
           />
-          {formik.errors.imagen ? <div className="text-danger">{formik.errors.imagen}</div> : null}
+          {formik.errors.imagen ? (
+            <div className="text-danger">{formik.errors.imagen}</div>
+          ) : null}
         </div>
         <div className="mb-3">
           <label for="genero" class="form-label fs-4">
             Genero
           </label>
-          {formik.errors.generoMusical ? <div className="text-danger">{formik.errors.generoMusical}</div> : null}
+          {formik.errors.generoMusical ? (
+            <div className="text-danger">{formik.errors.generoMusical}</div>
+          ) : null}
           <select
             class="form-select"
             name="generoMusical"
@@ -151,9 +161,13 @@ export const FormMusic = () => {
             onChange={formik.handleChange}
             value={formik.values.generoMusical}
           >
-            <option value="" defaultChecked>Seleccione el genero</option>
+            <option value="" defaultChecked>
+              Seleccione el genero
+            </option>
             {generos.map((g) => (
-              <option key={g._id} value={g._id}>{g.nombre}</option>
+              <option key={g._id} value={g._id}>
+                {g.nombre}
+              </option>
             ))}
           </select>
         </div>

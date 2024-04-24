@@ -1,9 +1,8 @@
-import { estadoCarritoCompras } from "../store/cartShoopingStore";
+import { estadoCarritoCompras } from "../../store/cartShoopingStore";
 
-export const CardItemShooping = ({ cancion}) => {
-
+export const CardItemShooping = ({ cancion }) => {
   const { eliminarCancionCarrito } = estadoCarritoCompras();
-  const path = "http://localhost:4000/public/"
+  const path = "http://localhost:4000/public/";
 
   const manejoEliminarCancionCarrito = () => {
     eliminarCancionCarrito(cancion._id);
@@ -40,7 +39,11 @@ export const CardItemShooping = ({ cancion}) => {
           <h6 class="mb-0">€ {precio}</h6>
         </div>
         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-          <button href="#!" className="text-muted border-0 bg-white" onClick={manejoEliminarCancionCarrito}>
+          <button
+            href="#!"
+            className="text-muted border-0 bg-white"
+            onClick={manejoEliminarCancionCarrito}
+          >
             <span class="close">&#10005;</span>
           </button>
         </div>

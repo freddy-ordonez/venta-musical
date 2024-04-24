@@ -1,4 +1,4 @@
-import { FormGen } from "./FormGen"
+import { FormGen } from "./FormGen";
 
 export const ModalGen = () => {
   return (
@@ -28,5 +28,5 @@ export const ModalGen = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

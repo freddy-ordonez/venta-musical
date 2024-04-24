@@ -79,6 +79,7 @@ export const estadoUsuario = create((set, get) => ({
   agregarUsuario: async (usuario) => {
     try {
       const {data} = await axios.post(`${SERVER}${usuarios}`, usuario)
+      console.log(data);
       set(state => ({usuarios: [...state.usuarios, data]}))
     } catch (error) {
       console.error("Error al agregar todos los usuarios", error);
@@ -86,11 +87,11 @@ export const estadoUsuario = create((set, get) => ({
   },
   actualizarPerfil: async (id, usuario) => {
     try {
-      const { status } = await axios.put(`${SERVER}${usuarios}/${id}`, usuario);
-      if (status === 200) {
-        set((state) => ({ ...state, login: usuario }));
+      const { data } = await axios.put(`${SERVER}${usuarios}/${id}`, usuario);
+      if (data) {
+        set((state) => ({ ...state, login: data }));
       }
-      return status === 200;
+      return data;
     } catch (error) {
       console.error("Error al actualizar el usuario", error);
     }
@@ -102,8 +103,7 @@ export const estadoUsuario = create((set, get) => ({
         usuario
       );
       if (data) {
-        const usuarioActualizado = {...usuario, contrasena: data.contrasena};
-        set(state => ({usuarios: state.usuarios.map(u => u._id !== id ? u : usuarioActualizado)}))
+        set(state => ({usuarios: state.usuarios.map(u => u._id !== id ? u : data)}))
       }
       return data;
     } catch (error) {
