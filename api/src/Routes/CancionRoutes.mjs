@@ -14,4 +14,4 @@ router.post("/api/canciones", multerUpload.single("imagen"), agregarCancion);
 
 router.delete("/api/canciones/:id", eliminarCancion);
 
-export default router;
+export default router
